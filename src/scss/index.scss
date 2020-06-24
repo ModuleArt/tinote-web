@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import "~normalize.css";
+
+@import "menu";
+@import "note";
+@import "folderContent";
+@import "_variables";
+@import "login";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  background: $body-background-color;
+}
+
+.container {
+  height: 800px;
+}
+
+.tinote {
+  position: relative;
+  max-width: 100%;
+  height: 100%;
+  font-size: 0.8rem;
+}
+
