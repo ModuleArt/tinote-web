@@ -13,7 +13,8 @@
        "indent": ["error", 2],
        "comma-dangle": "off",
        "require-jsdoc": "off",
-       "no-debugger": "off"
+       "no-debugger": "off",
+       "operator-linebreak": ["error", "before"]
   },
   "extends": [
       "eslint:recommended", 
