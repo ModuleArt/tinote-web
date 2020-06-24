@@ -1,10 +1,9 @@
 @import "_variables";
 
-.tinote__note {
+.tinote__note-wrapper {
   display: flex;
   justify-content: start;
   flex-direction: column;
-
   //position: absolute;
   //--------
   overflow:hidden;
@@ -30,7 +29,6 @@
     height: $note-menu-height;
   }
 
-
   .toolbar {
     height: $note-toolbar-height;
     margin: 0 60px;
@@ -39,7 +37,7 @@
     }
   }
 
-  .content {
+  .note {
     margin: 20px 60px;
     outline: none;
   }
