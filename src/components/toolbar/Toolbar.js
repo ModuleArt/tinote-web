@@ -1,7 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 
 export class Toolbar extends TinoteComponent {
-  static className = "toolbar"
+  static className = "--"
 
   constructor($root, options) {
     super($root, {
@@ -19,7 +19,29 @@ export class Toolbar extends TinoteComponent {
   toHTML() {
     return `
     <div class="menu">
-      Меню для ноты
+      <div class="name-of-note">Note 1</div>
+      <div class="note-buttons">
+        <div class="button">
+          <span class="material-icons">
+            info
+          </span>
+        </div>
+        <div class="button">
+          <span class="material-icons">
+            info
+          </span>
+        </div>
+
+        <div class="vertical-separator">
+
+        </div>
+
+        <div class="button">
+          <span class="material-icons">
+            delete
+          </span>
+        </div>
+      </div>
     </div>
 
     <div class="toolbar">

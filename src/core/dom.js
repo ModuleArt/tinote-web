@@ -26,6 +26,33 @@ class DOM {
     return this
   }
 
+  get data() {
+    return this.$el.dataset
+  }
+
+  css(styles = {}) {
+    Object.getOwnPropertyNames(styles).forEach(el => {
+      this.$el.style[el] = styles[el]
+    })
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  find(selector) {
+    return $(this.$el.querySelector(selector))
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+
   html(html) {
     if (typeof html === "string") {
       this.$el.innerHTML = html
@@ -34,6 +61,7 @@ class DOM {
     return this.$el.innerHTML.trim()
   }
 }
+
 
 export function $($el) {
   if ($el instanceof DOM) {

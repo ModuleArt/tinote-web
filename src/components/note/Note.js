@@ -1,7 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 
 export class Note extends TinoteComponent {
-  static className = "note"
+  static className = "--"
 
   constructor($root, options) {
     super($root, {

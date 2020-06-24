@@ -1,4 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
+import {createMenu} from "./menu.template";
+import {$} from "../../core/dom";
+import {resize} from "../../core/utils";
 
 export class Menu extends TinoteComponent {
   static className = "tinote__menu"
@@ -6,10 +9,17 @@ export class Menu extends TinoteComponent {
   constructor($root, options) {
     super($root, {
       name: "Menu",
-      listeners: [],
+      listeners: ["mousedown"],
       ...options}
     )
     this.$root = $root
+  }
+
+  onMousedown(event) {
+    const $target = $(event.target)
+    if ($target.data.resize === "menu") {
+      resize(this.$root, "[data-type='wrapper']")
+    }
   }
 
   init() {
@@ -17,53 +27,6 @@ export class Menu extends TinoteComponent {
   }
 
   toHTML() {
-    return `
-    <div class="profile">
-      <img src="./profile-img.png" alt="" class="img">
-      <div class="name">Jeka Volynko</div>
-    </div>
-
-    <div class="input-wrapper">
-      <input type="text" class="search">
-      <span class="material-icons">
-        search
-      </span>
-    </div>
-    
-
-    <div class="button">
-      <span class="material-icons">
-        add_circle
-      </span>
-      New Note
-    </div>
-
-    <ul class="list-of-folders">
-      <li class="folder">
-        <span class="material-icons">
-          stars
-        </span>
-        Shortcuts
-      </li>
-      <li class="folder folder-selected">
-        <span class="material-icons">
-          note
-        </span>
-        All notes
-      </li>
-      <li class="folder">
-        <span class="material-icons">
-          book
-        </span>
-        Notebook
-      </li>
-      <li class="folder">
-        <span class="material-icons">
-          delete
-        </span>
-        Trash
-      </li>
-    </ul>
-    `
+    return createMenu()
   }
 }

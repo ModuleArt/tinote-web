@@ -2,61 +2,99 @@
 @import "_mixins";
 
 .tinote__menu {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
+  
   //left: 0;
   //top: 0;
   //bottom: 0;
   // -----------
+  display: flex;
+  flex-direction: row;
   float:left;
-
-  width: $menu-width;
-  min-width: 160px;
+  //width: $menu-width;
+  //min-width: 160px;
   height: 100%;
 
-  padding: 0 0px;
-  box-shadow: 3px 0px 8px 1px #D3D3D3;
-  background: $menu-background-color;
-  color: $menu-text-color;
+  .resize {
+    height: 100%;
+    width: 3px;
+    background:#f0f0f0;
+  }
 
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: rgba($color: #ffffff, $alpha: 0.70);
+  .resize:hover {
+    background: red;
+    cursor: ew-resize;
+  }
 
-  .profile {
-    padding-left: 10px;
-    padding-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 5px;
+  .wrapper {
+    min-width: 160px;
+    max-width: 400px;
+    width: $menu-width - 3;
     display: flex;
-    align-items: center;
-    height: $header-height;
-    border-bottom: 2px solid red;
+    flex-direction: column;
+    justify-content: start;
+    height: 100%;
 
-    .img {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
+    padding: 0 0px;
+    box-shadow: 3px 0px 8px 1px #D3D3D3;
+    background: $menu-background-color;
+    color: $menu-text-color;
+
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba($color: #ffffff, $alpha: 0.70);
+
+    .profile {
+      padding-left: 10px;
+      padding-right: 15px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      display: flex;
+      align-items: center;
+      height: $header-height;
+      border-bottom: 2px solid red;
+
+      .img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+      }
+
+      .name {
+        margin-left: 10px;
+      }
     }
 
-    .name {
-      margin-left: 10px;
+    .horizontal-separator {
+      margin: 10px auto;
+      width: 80%;
+      border-bottom: 2px solid red;
     }
-  }
 
-  .horizontal-separator {
-    margin: 10px auto;
-    width: 80%;
-    border-bottom: 2px solid red;
-  }
+    .list-of-folders {
+      @include clear-list();
+      margin-top: 10px;
+      margin-left: 7px;
 
-  .list-of-folders {
-    @include clear-list();
-    margin-top: 10px;
-    margin-left: 7px;
+      .folder {
+        display: flex;
+        align-items: center;
+        padding: 3px;
+        span {
+          margin-right: 10px;
+        }
+      }
 
-    .folder {
+      .folder.selected, .folder:hover {
+        background: $menu-folder-list-selected-color;
+        border-radius: 10px;
+      }
+
+    }
+
+    .settings {
+      position: absolute;
+      bottom: 10px;
+      margin-left: 7px;
       display: flex;
       align-items: center;
       padding: 3px;
@@ -65,27 +103,10 @@
       }
     }
 
-    .folder.selected, .folder:hover {
+    .settings.selected, .settings:hover {
       background: $menu-folder-list-selected-color;
       border-radius: 10px;
     }
-
   }
-
-  .settings {
-    position: absolute;
-    bottom: 10px;
-    margin-left: 7px;
-    display: flex;
-    align-items: center;
-    padding: 3px;
-    span {
-      margin-right: 10px;
-    }
-  }
-
-  .settings.selected, .settings:hover {
-    background: $menu-folder-list-selected-color;
-    border-radius: 10px;
-  }
+ 
 }

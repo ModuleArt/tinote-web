@@ -1,12 +1,14 @@
 import {TinoteComponent} from "@core/TinoteComponent";
+import {$} from "../../core/dom";
+import {resize} from "../../core/utils";
 
-export class FolderContent extends TinoteComponent {
-  static className = "tinote__folder-content"
+export class ListOfNotes extends TinoteComponent {
+  static className = "tinote__list-of-notes"
 
   constructor($root, options) {
     super($root, {
-      name: "FolderContent",
-      listeners: [],
+      name: "ListOfNotes",
+      listeners: ["mousedown"],
       ...options}
     )
     this.$root = $root
@@ -16,15 +18,31 @@ export class FolderContent extends TinoteComponent {
     super.init()
   }
 
+  onMousedown(event) {
+    const $target = $(event.target)
+    if ($target.data.resize === "listOfNotes") {
+      resize(this.$root, "[data-type='wrapper']")
+    }
+  }
+
   toHTML() {
     return `
+    <div class="wrapper" data-type='wrapper'>
     <div class="toolbar">
-      <div class="folder-name">
-        All Notes
+
+      <div class="input-wrapper">
+        <input type="text" class="search">
+        <span class="material-icons">
+          search
+        </span>
       </div>
-      <div class="number-of-notes">
-        1488 Notes
+
+      <div class="button">
+        <span class="material-icons">
+          post_add
+        </span>
       </div>
+
     </div>
 
     <ul class="list-of-notes">
@@ -41,8 +59,6 @@ export class FolderContent extends TinoteComponent {
             1 min ago
           </div>
         </div>
-        
-        <img src="./note-item-img.png" alt="" class="img">
       </li>
 
       <li class="note-item note-item-selected">
@@ -57,7 +73,6 @@ export class FolderContent extends TinoteComponent {
             1 min ago
           </div>
         </div>
-        <img src="./note-item-img.png" alt="" class="img">
       </li>
 
       <li class="note-item note-item-selected">
@@ -72,10 +87,12 @@ export class FolderContent extends TinoteComponent {
             1 min ago
           </div>
         </div>
-        <img src="./note-item-img.png" alt="" class="img">
       </li>
 
     </ul>
+    
+    </div>
+    <div class="resize" data-resize="listOfNotes"></div>
     `
   }
 }
