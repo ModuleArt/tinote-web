@@ -1,4 +1,5 @@
 import "./scss/index.scss"
+/*
 import {Tinote} from "./components/tinote/Tinote"
 import {Menu} from "./components/menu/Menu"
 import {FolderContent} from "./components/folderContent/FolderContent"
@@ -22,3 +23,4 @@ const tinote = new Tinote("#app", [
 })
 
 tinote.render()
+*/

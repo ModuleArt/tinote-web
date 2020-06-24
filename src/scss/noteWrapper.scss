@@ -21,12 +21,35 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid red;
   }
 
   .menu {
-    margin: 0 20px;
-    height: $note-menu-height;
+    //margin: 0 20px;
+    height: $header-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .name-of-note {
+      margin-left: 20px;
+    }
+    .note-buttons {
+
+      display: inline-flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-right: 20px;
+      
+      .vertical-separator {
+        margin: auto 5px;
+        width: 2px;
+        background: red;
+        height: 15px;
+        
+      }
+    }
+
   }
 
   .toolbar {
