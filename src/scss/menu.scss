@@ -1,0 +1,131 @@
+@import "_variables";
+@import "_mixins";
+
+.tinote__menu {
+  //position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  
+  //left: 0;
+  //top: 0;
+  //bottom: 0;
+  // -----------
+  float:left;
+
+  width: $menu-width;
+  min-width: 160px;
+  height: 100%;
+
+  padding: 0 15px;
+  box-shadow: 3px 0px 8px 1px #D3D3D3;
+  background: $menu-background-color;
+  color: $menu-text-color;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba($color: #ffffff, $alpha: 0.70);
+
+  .profile {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+
+    .img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .name {
+      margin-left: 10px;
+    }
+  }
+
+  .search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    border: 2px solid;
+    border-radius: 10px;
+  }
+
+  .search:focus {
+    border: 2px solid red;
+  }
+
+  .input-wrapper {
+    margin-top: 20px;
+    //display:inline-block;
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 25px;
+    color: rgba($color: #1a1a1a, $alpha: 0.5);
+    font-weight: 700;
+
+    span {
+      position: absolute;
+      left: 6px;
+      //z-index: 2;
+      font-size: 1.3rem;
+      
+    }
+
+    .search {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      border: 2px solid;
+      border-radius: 10px;
+      padding-left: 30px;
+    }
+  
+    .search:focus {
+      border: 2px solid rgba($color: #1a1a1a, $alpha: 0.5);
+      border-radius: 10px;
+      outline: none;
+    }
+  }
+  
+
+  .button {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+
+    span {
+      margin-right: 10px;
+    }
+  }
+
+  .button.selected, .button:hover {
+    background: $menu-folder-list-selected-color;
+    border-radius: 10px;
+  }
+
+  .list-of-folders {
+    @include clear-list();
+    margin-top: 30px;
+
+    .folder {
+      display: flex;
+      align-items: center;
+      padding: 3px;
+      span {
+        margin-right: 10px;
+      }
+    }
+
+    .folder.selected, .folder:hover {
+      background: $menu-folder-list-selected-color;
+      border-radius: 10px;
+    }
+
+  }
+}

@@ -1,0 +1,46 @@
+@import "_variables";
+
+.tinote__note {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+
+  //position: absolute;
+  //--------
+  overflow:hidden;
+
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  width: $note-width;
+  height: 100%;
+  
+  background: #ffffff;
+
+  .menu, .toolbar {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .menu {
+    margin: 0 20px;
+    height: $note-menu-height;
+  }
+
+
+  .toolbar {
+    height: $note-toolbar-height;
+    margin: 0 60px;
+    .button {
+      margin-left: 10px;
+    }
+  }
+
+  .content {
+    margin: 20px 60px;
+    outline: none;
+  }
+}
