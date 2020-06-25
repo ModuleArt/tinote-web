@@ -1,0 +1,78 @@
+@import "_variables";
+@import "_mixins";
+
+.note-menu , .note-toolbar {
+  @include noselect();
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  
+  padding: 0 10px;
+  overflow: hidden;
+  
+  background: #ffffff;
+}
+
+.note-menu {
+  height: $header-height;
+  border-bottom: 2px solid red;
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    width: 100%;
+  }
+
+  .name-of-note {
+    margin-left: 20px;
+  }
+
+  .note-buttons {
+    
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 20px;
+    
+    span {
+      cursor: pointer;
+    }
+
+    .vertical-separator {
+      margin: auto 5px;
+      width: 2px;
+      background: red;
+      height: 15px;
+      
+    }
+  }
+
+}
+
+.note-toolbar {
+  height: $note-toolbar-height;
+
+  .button {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 2px solid red;
+    width: 100%;
+  }
+}
+
+.note-note {
+  height: 700px;
+  background: #ffffff;
+  overflow:hidden;
+  padding: 20px 60px;
+  outline: none;
+}

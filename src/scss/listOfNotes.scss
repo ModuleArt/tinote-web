@@ -2,17 +2,10 @@
 @import "_mixins";
 
 .tinote__list-of-notes {
-  //position: absolute;
   display: flex;
   flex-direction: row;
-  //left: $menu-width;
-  
-  //top: 0;
-  //bottom: 0;
-  // ---------
   float:left;
 
-  //width: $folder-content-width;
   height: 100%;
 
   .resize {
@@ -33,7 +26,6 @@
     flex-direction: column;
     background: #f8f8f8;
     width: $folder-content-width - 3;
-    //border-right: 2px solid #f0f0f0;
   
     .toolbar {
       top: 0;
@@ -45,7 +37,6 @@
       justify-content: space-around;
   
       .search {
-        //position: absolute;
         top: 0;
         left: 0;
         right: 0;
@@ -60,8 +51,6 @@
       }
     
       .input-wrapper {
-        //margin-top: 20px;
-        //display:inline-block;
         display: flex;
         width: 80%;
         align-items: center;
@@ -71,9 +60,9 @@
         font-weight: 700;
     
         span {
+          @include noselect();
           position: absolute;
           left: 6px;
-          //z-index: 2;
           font-size: 1.3rem;
           
         }
@@ -96,6 +85,8 @@
       }
     
       .button {
+        @include noselect();
+        cursor: pointer;
         width: 10%;
         display: flex;
         align-items: center;
@@ -115,12 +106,15 @@
     }
   
     .list-of-notes {
+      @include noselect();
       @include clear-list();
       top: $folder-content-toolbar-height;
       overflow-y: auto;
       background: #f8f8f8;
+      height: 750px;
   
       .note-item {
+        cursor: pointer;
         border-bottom: 2px solid #f0f0f0;
         display: flex;
         justify-content: space-between;

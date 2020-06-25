@@ -37,7 +37,22 @@ class DOM {
   }
 
   closest(selector) {
-    return $(this.$el.closest(selector))
+    if (this.$el.closest(selector)) {
+      return $(this.$el.closest(selector))
+    }
+    return null
+  }
+
+  children() {
+    return this.$el.children
+  }
+
+  attr(name, value) {
+    if (value) {
+      this.$el.setAttribute(name, value)
+      return this
+    }
+    return this.$el.getAttribute(name)
   }
 
   getCoords() {
@@ -52,6 +67,9 @@ class DOM {
     return this.$el.querySelectorAll(selector)
   }
 
+  focus() {
+    this.$el.focus()
+  }
 
   html(html) {
     if (typeof html === "string") {
@@ -61,7 +79,6 @@ class DOM {
     return this.$el.innerHTML.trim()
   }
 }
-
 
 export function $($el) {
   if ($el instanceof DOM) {

@@ -2,10 +2,11 @@
 @import "~normalize.css";
 
 @import "menu";
-@import "noteWrapper";
+@import "note";
 @import "listOfNotes";
 @import "_variables";
 @import "login";
+@import "contextMenu";
 
 * {
   box-sizing: border-box;
@@ -29,4 +30,3 @@ body {
   height: 100%;
   font-size: 0.8rem;
 }
-

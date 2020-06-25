@@ -6,19 +6,31 @@ export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function resize($root, selector) {
+export function resize($root, selector, dispatcher) {
   const $wrapper = $root.find(selector)
   const coords = $wrapper.getCoords()
   let delta
+  const coord = Math.round(coords.left)
 
   document.onmousemove = e => {
     e.preventDefault()
-    delta = e.pageX - coords.left
+    delta = e.pageX - coord
     $wrapper.css({width: delta+"px"})
   }
 
   document.onmouseup = e => {
     document.onmouseup = null
     document.onmousemove= null
+
+    if (dispatcher) {
+      dispatcher(delta)
+    }
   }
+}
+
+export function isEqual(a, b) {
+  if (typeof a === "object" && typeof b === "object") {
+    return JSON.stringify(a) === JSON.stringify(b)
+  }
+  return a === b
 }

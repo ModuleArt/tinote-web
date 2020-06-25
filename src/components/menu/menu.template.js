@@ -1,7 +1,44 @@
-function createFoldersList() {
+import {TRASH_ID, ALL_NOTES_ID} from "../../../constants"
+
+
+function createFolder(currentFolder) {
+  const currentFold = parseInt(currentFolder)
+  return folder => {
+    const selected = currentFold === parseInt(folder.id)
+      ? "folder-selected"
+      : ""
+    return `
+    <li class="folder ${selected}" 
+    data-id="${folder.id}" 
+    data-type="folder"
+    data-context="folder">
+      <span class="material-icons">
+        folder
+      </span>
+      <p data-type="folder-name">
+      ${folder.name}
+      </p>
+    </li>
+    `
+  }
+}
+
+function createFoldersList(folders, currentFolder) {
+  const currentFold = parseInt(currentFolder)
+  const foldersHTML = folders.map(createFolder(currentFold)).join("")
+
+  const isTrash = currentFold === TRASH_ID
+    ? "folder-selected"
+    : ""
+
+  const isAllNotes = currentFold === ALL_NOTES_ID
+    ? "folder-selected"
+    : ""
+
   return `
   <ul class="list-of-folders">
-    <li class="folder">
+    <li class="folder ${isAllNotes}" 
+    data-type="folder" data-id="${ALL_NOTES_ID}" >
       <span class="material-icons">
         note
       </span>
@@ -11,27 +48,9 @@ function createFoldersList() {
       
     </div>
 
-    <li class="folder folder-selected">
-      <span class="material-icons">
-        folder
-      </span>
-      Folder 1
-    </li>
-    <li class="folder">
-      <span class="material-icons">
-        folder
-        </span>
-      Folder 2
-    </li>
+    ${foldersHTML}
 
-    <li class="folder">
-      <span class="material-icons">
-        folder
-        </span>
-      Folder 3
-    </li>
-
-    <li class="folder">
+    <li class="folder" data-type="newFolder">
       <span class="material-icons">
         create_new_folder
         </span>
@@ -42,7 +61,7 @@ function createFoldersList() {
       
     </div>
 
-    <li class="folder">
+    <li class="folder ${isTrash}" data-type="folder" data-id="${TRASH_ID}" >
       <span class="material-icons">
         delete
       </span>
@@ -52,16 +71,16 @@ function createFoldersList() {
   `
 }
 
-
-export function createMenu() {
+export function createMenu(state) {
+  console.log(state.folders)
   return `
-  <div class="wrapper" data-type="wrapper">
+  <div class="wrapper" data-resize='true' style="width:${state.menuSize};">
   <div class="profile">
     <img src="./profile-img.png" alt="" class="img">
     <div class="name">Jeka Volynko</div>
   </div>
 
-  ${createFoldersList()}
+  ${createFoldersList(state.folders, state.currentFolder)}
 
   <div class="settings">
     <span class="material-icons">
