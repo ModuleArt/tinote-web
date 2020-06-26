@@ -4,12 +4,7 @@ export function createNoteMenu(state) {
   <div class="wrapper" data-type="wrapper">
     <div class="name-of-note" data-type="note-title">${note.title}</div>
     <div class="note-buttons">
-      <div class="button">
-        <span class="material-icons">
-          info
-        </span>
-      </div>
-      <div class="button">
+      <div class="button" data-type="info">
         <span class="material-icons">
           info
         </span>
@@ -17,7 +12,7 @@ export function createNoteMenu(state) {
 
       <div class="vertical-separator"></div>
 
-      <div class="button">
+      <div class="button" data-type="delete">
         <span class="material-icons">
           delete
         </span>

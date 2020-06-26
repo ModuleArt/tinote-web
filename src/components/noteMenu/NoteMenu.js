@@ -1,6 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 import {createNoteMenu} from "./noteMenu.template";
-import {renameNote} from "../../redux/actions";
+import {renameNote, deleteNote} from "../../redux/actions";
+import {$} from "../../core/dom";
 
 export class NoteMenu extends TinoteComponent {
   static className = "note-menu"
@@ -8,7 +9,7 @@ export class NoteMenu extends TinoteComponent {
   constructor($root, options) {
     super($root, {
       name: "NoteMenu",
-      listeners: [],
+      listeners: ["mouseover", "click"],
       subscribe: ["currentNote"],
       ...options}
     )
@@ -53,6 +54,30 @@ export class NoteMenu extends TinoteComponent {
     if (Object.keys(changes)[0] === "currentNote") {
       this.$root.html(this.toHTML())
     }
+  }
+
+  onClick(event) {
+    const $target = $(event.target)
+    const $wrap = $target.closest("[data-type]")
+    if ($wrap) {
+      if ($wrap.data.type === "delete") {
+        this.$dispatch(deleteNote(this.store.getState().currentNote))
+      }
+    }
+  }
+
+  onMouseover(event) {
+    const $target = $(event.target)
+    const $wrap = $target.closest("[data-type]")
+    if ($wrap) {
+      if ($wrap.data.type === "info") {
+        this.showInfo($wrap)
+      }
+    }
+  }
+
+  async showInfo($target) {
+    console.warn("Not implemented")
   }
 
   toHTML() {

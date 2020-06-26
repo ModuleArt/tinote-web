@@ -7,7 +7,8 @@ import {SELECT_FOLDER,
   RENAME_FOLDER,
   RENAME_NOTE,
   ADD_NOTE,
-  ADD_FOLDER
+  ADD_FOLDER,
+  CHANGE_TEXT
 } from "./types"
 
 export function selectFolder(data) {
@@ -62,6 +63,13 @@ export function deleteNote(data) {
 export function renameNote(data) {
   return {
     type: RENAME_NOTE,
+    data
+  }
+}
+
+export function changeText(data) {
+  return {
+    type: CHANGE_TEXT,
     data
   }
 }

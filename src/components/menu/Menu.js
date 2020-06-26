@@ -85,6 +85,8 @@ export class Menu extends TinoteComponent {
           id: id
         }))
 
+        this.$dispatch(selectFolder(id))
+
         this.rename(id)
       }
     }

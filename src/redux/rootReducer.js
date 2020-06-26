@@ -7,7 +7,8 @@ import {SELECT_FOLDER,
   RENAME_NOTE,
   ADD_NOTE,
   ADD_FOLDER,
-  RENAME_FOLDER
+  RENAME_FOLDER,
+  CHANGE_TEXT
 } from "./types"
 
 export function rootReducer(state, action) {
@@ -46,6 +47,13 @@ export function rootReducer(state, action) {
         : f
     })}
 
+  case CHANGE_TEXT:
+    return {...state, notes: state.notes.map(n => {
+      if (n.id === action.data.id) {
+        return {...n, content: action.data.content}
+      }
+      return n
+    })}
 
   case CHANGE_MENU_SIZE:
     return {...state, menuSize: action.data}

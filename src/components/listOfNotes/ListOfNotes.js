@@ -16,7 +16,7 @@ export class ListOfNotes extends TinoteComponent {
     super($root, {
       name: "ListOfNotes",
       listeners: ["mousedown", "click"],
-      subscribe: ["currentFolder", "notes"],
+      subscribe: ["currentFolder", "notes", "currentNote"],
       ...options}
     )
     this.store = options.store
@@ -37,6 +37,8 @@ export class ListOfNotes extends TinoteComponent {
       this.$root.html(this.toHTML())
     } else if (Object.keys(changes)[0] === "notes") {
       this.$root.html(this.toHTML())
+    } else if (Object.keys(changes)[0] === "currentNote") {
+      this.$root.html(this.toHTML())
     }
   }
 
@@ -54,6 +56,7 @@ export class ListOfNotes extends TinoteComponent {
           id: id,
           folder: this.store.getState().currentFolder
         }))
+        this.$dispatch(selectNote(id))
         this.$emit("note-item:rename", id)
       }
     }

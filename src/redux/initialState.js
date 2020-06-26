@@ -16,7 +16,19 @@ export const defaultState = {
     {
       id: 2,
       title: "Note 2",
-      content: "Note 2 simple text",
+      content: `Note 2 simple  very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very
+      very very very very very very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very
+      very very very very very very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very 
+      very very very very very very very very very very very large text`,
       folder: 1
     },
     {
