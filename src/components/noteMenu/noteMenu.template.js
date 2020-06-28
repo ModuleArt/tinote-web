@@ -4,6 +4,7 @@ export function createNoteMenu(state) {
   <div class="wrapper" data-type="wrapper">
     <div class="name-of-note" data-type="note-title">${note.title}</div>
     <div class="note-buttons">
+
       <div class="button" data-type="info">
         <span class="material-icons">
           info
@@ -17,6 +18,7 @@ export function createNoteMenu(state) {
           delete
         </span>
       </div>
+      
     </div>
   </div>
   `

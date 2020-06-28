@@ -10,7 +10,7 @@ export class Toolbar extends TinoteStateComponent {
     super($root, {
       name: "Toolbar",
       listeners: ["click"],
-      subscribe: ["currentNote", "notes"],
+      subscribe: ["currentNote"],
       ...options}
     )
     this.$root = $root
@@ -22,9 +22,8 @@ export class Toolbar extends TinoteStateComponent {
 
   init() {
     super.init()
-    const stat = this.store.getState()
-    const currentNote = stat.notes.find(note => note.id === stat.currentNote)
-    this.setState(currentNote.styles)
+
+    this.refreshState()
   }
 
   get template() {
@@ -32,8 +31,14 @@ export class Toolbar extends TinoteStateComponent {
   }
 
   storeChanged(changes) {
-    const stat = this.store.getState()
-    const currentNote = stat.notes.find(note => note.id === stat.currentNote)
+    if (Object.keys(changes)[0] === "currentNote") {
+      this.refreshState()
+    }
+  }
+
+  refreshState() {
+    const state = this.store.getState()
+    const currentNote = state.notes.find(note => note.id === state.currentNote)
     this.setState(currentNote.styles)
   }
 
@@ -41,7 +46,7 @@ export class Toolbar extends TinoteStateComponent {
     const $target = $(event.target)
     if ($target.data.type === "button") {
       const value = JSON.parse($target.data.value)
-      console.log(value)
+
       this.$emit("toolbar:changeStyles", value)
     }
   }

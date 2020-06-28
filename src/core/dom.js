@@ -78,6 +78,18 @@ class DOM {
     }
     return this.$el.innerHTML.trim()
   }
+
+  get classes() {
+    return this.$el.classList
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+  }
 }
 
 export function $($el) {

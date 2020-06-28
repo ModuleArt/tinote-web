@@ -3,6 +3,7 @@ function toButton({active, icon, value}) {
     data-type="button"
     data-value='${JSON.stringify(value)}'
   `
+
   return `
   <div ${meta} class="button ${active ? "selected" : ""}">
       <span ${meta} class="material-icons">

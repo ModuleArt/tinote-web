@@ -12,6 +12,7 @@ export class ContextMenu extends TinoteComponent {
       subscribe: [],
       ...options}
     )
+
     this.$root = $root
     this.menuOptions = null
     this.menuVisible = false
@@ -56,8 +57,7 @@ export class ContextMenu extends TinoteComponent {
 
   onContextmenu(event) {
     event.preventDefault()
-    const $target = $(event.target)
-    const $wrap = $target.closest("[data-context]")
+    const $wrap = $(event.target).closest("[data-context]")
 
     if ($wrap && $wrap.data.context) {
       const options = $wrap.data.context === "folder"
@@ -65,6 +65,7 @@ export class ContextMenu extends TinoteComponent {
         : this.noteItemOptions
 
       this.$root.html(createContextMenu(options))
+
       const menuOptions = this.$root.findAll(".context-menu-option")
       menuOptions.forEach(op => {
         op.addEventListener("click", e => {
@@ -76,8 +77,6 @@ export class ContextMenu extends TinoteComponent {
       this.toggleMenu("show")
     } else {
       this.toggleMenu("hide")
-
-      // return true
     }
     return false
   }

@@ -22,7 +22,6 @@ export class NoteMenu extends TinoteComponent {
 
     this.$on("note-item:rename", data => {
       this.rename(data)
-      console.log("note-item:rename = ", data)
     })
   }
 
@@ -57,8 +56,7 @@ export class NoteMenu extends TinoteComponent {
   }
 
   onClick(event) {
-    const $target = $(event.target)
-    const $wrap = $target.closest("[data-type]")
+    const $wrap = $(event.target).closest("[data-type]")
     if ($wrap) {
       if ($wrap.data.type === "delete") {
         this.$dispatch(deleteNote(this.store.getState().currentNote))
@@ -67,8 +65,7 @@ export class NoteMenu extends TinoteComponent {
   }
 
   onMouseover(event) {
-    const $target = $(event.target)
-    const $wrap = $target.closest("[data-type]")
+    const $wrap = $(event.target).closest("[data-type]")
     if ($wrap) {
       if ($wrap.data.type === "info") {
         this.showInfo($wrap)

@@ -28,16 +28,17 @@ function toNote(currentNote) {
 export function createlistOfNotes(state) {
   const currentFolder = parseInt(state.currentFolder)
   const currentNote = parseInt(state.currentNote)
+
   const notesData = currentFolder !== ALL_NOTES_ID
     ? state.notes.filter(n => n.folder === currentFolder)
     : state.notes.filter(n => n.folder !== TRASH_ID)
-  const notes = notesData.map(toNote(currentNote)).join("")
 
+  const notes = notesData.map(toNote(currentNote)).join("")
 
   const buttonInactive = currentFolder === TRASH_ID ? "inactive" : "add-note"
   return `
   <div class="wrapper"
-   data-resize='true'
+    data-resize='true'
     style="width:${state.listOfNotesSize};">
 
     <div class="toolbar">
@@ -57,11 +58,9 @@ export function createlistOfNotes(state) {
 
     </div>
 
-  <ul class="list-of-notes">
-
-  ${notes}  
-
-  </ul>
+    <ul class="list-of-notes">
+      ${notes}  
+    </ul>
   
   </div>
   <div class="resize" data-resize="listOfNotes"></div>

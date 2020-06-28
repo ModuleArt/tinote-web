@@ -40,5 +40,8 @@ export class TinoteComponent extends DOMListener {
 
   destroy() {
     this.removeDOMListeners()
+    this.unsubs.forEach(unsub => {
+      unsub()
+    })
   }
 }

@@ -43,5 +43,7 @@ export class Tinote {
     this.components.forEach(element => {
       element.destroy()
     });
+
+    this.storeSubscriber.unsubscribeComponents()
   }
 }

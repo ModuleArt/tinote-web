@@ -51,3 +51,37 @@ export function debounce(fn, time) {
 export function camelCaseToDash(str) {
   return str.replace(/([A-Z])/g, g => `-${g[0].toLowerCase()}`);
 }
+
+export function isDifferenceBetweenArrays(prevArr, newArr) {
+  if (prevArr === newArr) {
+    return {
+      isDiffer: false,
+      updated: [],
+      deleted: []
+    }
+  }
+
+  const deleted = prevArr.filter(prevObj => {
+    return !newArr.some(function(newObj) {
+      return prevObj.id == newObj.id;
+    });
+  });
+
+  const updated = newArr
+    .filter(newObj => !prevArr.includes(newObj));
+
+  return {
+    isDiffer: true,
+    updated: updated,
+    deleted: deleted
+  }
+}
+
+export function changeSelectionOfItem($root, prevItemId, currentItemId) {
+  $root.
+    find(`[data-id='${prevItemId}']`)
+    .removeClass("selected")
+  $root.
+    find(`[data-id='${currentItemId}']`)
+    .addClass("selected")
+}

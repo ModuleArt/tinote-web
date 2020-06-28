@@ -1,7 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 import {createMenu} from "./menu.template";
 import {$} from "../../core/dom";
-import {resize} from "../../core/utils";
+import {resize, changeSelectionOfItem} from "../../core/utils";
 import {selectFolder,
   changeMenuSize,
   deleteFolder,
@@ -22,14 +22,26 @@ export class Menu extends TinoteComponent {
     )
     this.$root = $root
     this.store = options.store
+
+    this.prevCurrentFolder = -1
   }
 
   storeChanged(changes) {
-    this.$root.html(this.toHTML())
+    if (Object.keys(changes)[0] === "currentFolder") {
+      changeSelectionOfItem(this.$root,
+        this.prevCurrentFolder,
+        changes.currentFolder
+      )
+      this.prevCurrentFolder = changes.currentFolder
+    } else {
+      this.$root.html(this.toHTML())
+    }
   }
 
   init() {
     super.init()
+
+    this.prevCurrentFolder = this.store.getState().currentFolder
 
     this.$on("folder:rename", data => {
       console.log("folder:rename = ", data)

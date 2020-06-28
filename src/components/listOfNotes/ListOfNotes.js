@@ -1,8 +1,9 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 import {$} from "../../core/dom";
-import {resize} from "../../core/utils";
+import {resize, changeSelectionOfItem} from "../../core/utils";
 import {createlistOfNotes} from "./listOfNotes.template";
-import {selectNote,
+import {
+  selectNote,
   changeListSize,
   deleteNote,
   addNote
@@ -21,41 +22,50 @@ export class ListOfNotes extends TinoteComponent {
     )
     this.store = options.store
     this.$root = $root
+    this.prevCurrentNote = -1
   }
 
   init() {
     super.init()
+    this.prevCurrentNote = this.store.getState().currentNote
 
     this.$on("note-item:delete", data => {
-      console.log("note-item:delete = ", data)
       this.$dispatch(deleteNote(parseInt(data)))
     })
   }
 
   storeChanged(changes) {
-    if (Object.keys(changes)[0] === "currentFolder") {
-      this.$root.html(this.toHTML())
-    } else if (Object.keys(changes)[0] === "notes") {
-      this.$root.html(this.toHTML())
-    } else if (Object.keys(changes)[0] === "currentNote") {
+    switch (Object.keys(changes)[0]) {
+    case "currentNote":
+      changeSelectionOfItem(this.$root,
+        this.prevCurrentNote,
+        changes.currentNote
+      )
+      this.prevCurrentNote = changes.currentNote
+      break
+
+    case "currentFolder":
+    case "notes":
+    default:
       this.$root.html(this.toHTML())
     }
   }
 
-  // Bug $target is not always a folder
   onClick(event) {
-    const $target = $(event.target)
-    const $wrap = $target.closest("[data-type]")
+    const $wrap = $(event.target).closest("[data-type]")
+
     if ($wrap) {
       if ($wrap.data.type === "note-item") {
         this.$dispatch(selectNote(parseInt($wrap.data.id)))
       } else if ($wrap.data.type === "add-note") {
         const id = Math.max(...this.store.getState().notes.map(n => n.id)) + 1
+
         this.$dispatch(addNote({
           ...initialNote,
           id: id,
           folder: this.store.getState().currentFolder
         }))
+
         this.$dispatch(selectNote(id))
         this.$emit("note-item:rename", id)
       }

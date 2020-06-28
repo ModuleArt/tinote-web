@@ -1,23 +1,27 @@
 import {TRASH_ID, ALL_NOTES_ID} from "../../../constants"
 
-
 function createFolder(currentFolder) {
   const currentFold = parseInt(currentFolder)
+
   return folder => {
     const selected = currentFold === parseInt(folder.id)
       ? "folder-selected"
       : ""
+
     return `
     <li class="folder ${selected}" 
     data-id="${folder.id}" 
     data-type="folder"
     data-context="folder">
+
       <span class="material-icons">
         folder
       </span>
+
       <p data-type="folder-name">
       ${folder.name}
       </p>
+
     </li>
     `
   }
@@ -39,33 +43,36 @@ function createFoldersList(folders, currentFolder) {
   <ul class="list-of-folders">
     <li class="folder ${isAllNotes}" 
     data-type="folder" data-id="${ALL_NOTES_ID}" >
+
       <span class="material-icons">
         note
       </span>
       All notes
+
     </li>
-    <div class="horizontal-separator">
-      
-    </div>
+
+    <div class="horizontal-separator"></div>
 
     ${foldersHTML}
 
     <li class="folder" data-type="newFolder">
+
       <span class="material-icons">
         create_new_folder
-        </span>
+      </span>
       New Folder
+
     </li>
 
-    <div class="horizontal-separator">
-      
-    </div>
+    <div class="horizontal-separator"></div>
 
     <li class="folder ${isTrash}" data-type="folder" data-id="${TRASH_ID}" >
+
       <span class="material-icons">
         delete
       </span>
       Trash
+
     </li>
   </ul>
   `
@@ -74,19 +81,19 @@ function createFoldersList(folders, currentFolder) {
 export function createMenu(state) {
   return `
   <div class="wrapper" data-resize='true' style="width:${state.menuSize};">
-  <div class="profile">
-    <img src="./profile-img.png" alt="" class="img">
-    <div class="name">Jeka Volynko</div>
-  </div>
+    <div class="profile">
+      <img src="./profile-img.png" alt="" class="img">
+      <div class="name">Jeka Volynko</div>
+    </div>
 
-  ${createFoldersList(state.folders, state.currentFolder)}
+    ${createFoldersList(state.folders, state.currentFolder)}
 
-  <div class="settings">
-    <span class="material-icons">
-      settings
-      </span>
-      Settings
-  </div>
+    <div class="settings">
+      <span class="material-icons">
+        settings
+        </span>
+        Settings
+    </div>
 
   </div>
   <div class="resize" data-resize="menu"></div>

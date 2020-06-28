@@ -1,79 +1,119 @@
+import {isDifferenceBetweenArrays} from "../core/utils"
+
+const DB_VERSION = 3
+
 export class IndexedDBClient {
-  constructor() {}
+  constructor() {
+    this.db = null
+    this.version = DB_VERSION
+
+    this.folders = []
+    this.notes = []
+  }
+
+  deleteAllObjectStores(db) {
+    db.objectStoreNames.forEach(name => {
+      if (typeof name === "string") {
+        db.deleteObjectStore(name)
+      }
+    })
+    return true
+  }
+
+  initObjectStores(db) {
+    db.createObjectStore("notes", {keyPath: "id"})
+    db.createObjectStore("folders", {keyPath: "id"})
+  }
 
   init() {
-    return new Promise(resolve => {
-      const openRequest = indexedDB.open("store", 1);
-      this.db = null
-      openRequest.onupgradeneeded = () => {
-        this.db = openRequest.result
-        let a
-        let b
-        switch (this.db.version) { // существующая (старая) версия базы данных
+    return new Promise((resolve, reject) => {
+      const openRequest = indexedDB.open("store", this.version)
+
+      openRequest.onupgradeneeded = event => {
+        const db = event.target.result
+
+        switch (event.target.result.version) {
         case 0:
-          console.log("dolbaeb")
-          a = this.db.createObjectStore("notes", {keyPath: "id"})
-          b = this.db.createObjectStore("folders", {keyPath: "id"})
-          console.log(a)
-          console.log(b)
+          console.log("No IndexedDB was found.")
+          console.log("Initialization new IndexedDB...")
+          this.initObjectStores(db)
+          console.log("Initialization was successful...")
+
           break
-          // версия 0 означает, что на клиенте нет базы данных
-          // выполнить инициализацию
-        case 1:
-          a = this.db.createObjectStore("notes", {keyPath: "id"})
-          b = this.db.createObjectStore("folders", {keyPath: "id"})
+        case this.version:
+          console.log("IndexedDB was found but it needs updating.")
+          this.deleteAllObjectStores(db)
+          console.log("Initialization new IndexedDB...")
+          this.initObjectStores(db)
+          console.log("Initialization was successful...")
+
           break
         default:
-          console.error("version of index db = ", this.db.version)
-            // на клиенте версия базы данных 1
-            // обновить
+          console.error("Catch error during initialization of IndexedDB")
+          console.error("Version of index db = ", db.version)
         }
       };
 
       openRequest.onerror = () => {
         console.error("Error", openRequest.error)
+        reject(openRequest.error)
       };
 
       openRequest.onsuccess = () => {
         this.db = openRequest.result
-        console.log("INDEXDB IS RUNNING")
-        resolve("yep")
-        // продолжить работу с базой данных, используя объект db
+        console.log("IndexedDB is running...")
+        resolve(true)
       }
     })
   }
 
   save(state) {
+    const notesDiff = isDifferenceBetweenArrays(this.notes, state.notes)
+    const foldersDiff = isDifferenceBetweenArrays(this.folders, state.folders)
+
+    if (!notesDiff.isDiffer && !foldersDiff.isDiffer) {
+      return true
+    }
+
     const prom = new Promise(resolve => {
-      console.log(this.db)
+      console.log("Start transaction to update data...")
       const tx = this.db.transaction(["folders", "notes"], "readwrite")
 
-      state.folders.forEach(folder => {
-        // let request = tx.objectStore("folders").put(folder);
+      foldersDiff.deleted.forEach(folder => {
+        tx.objectStore("folders").delete(folder.id);
+      })
+
+      notesDiff.deleted.forEach(note => {
+        tx.objectStore("notes").delete(note.id);
+      })
+
+      foldersDiff.updated.forEach(folder => {
         tx.objectStore("folders").put(folder);
       })
 
-      state.notes.forEach(note => {
-        // let request = tx.objectStore("folders").put(folder);
+      notesDiff.updated.forEach(note => {
         tx.objectStore("notes").put(note);
       })
 
       tx.oncomplete = function(event) {
-        resolve("yep")
+        console.log("Transaction is successful...")
+        resolve(true)
       }
     })
-    console.log(prom)
     return prom
   }
+
   get() {
     return new Promise(resolve => {
       const tx = this.db.transaction(["folders", "notes"], "readonly")
 
-
       const folders = tx.objectStore("folders").getAll()
       const notes = tx.objectStore("notes").getAll()
 
-      tx.oncomplete = function(event) {
+      tx.oncomplete = event => {
+        this.folders = folders.result
+        this.notes = notes.result
+
         resolve({folders: folders.result, notes: notes.result})
       }
     })
