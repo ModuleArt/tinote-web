@@ -1,5 +1,5 @@
-import {DEFAULT_MENU_WIDTH, TRASH_ID} from "./../../constants"
-import {DEFAULT_LIST_WIDTH} from "./../../constants"
+import {TRASH_ID} from "./../../constants"
+import {DEFAULT_LIST_WIDTH, DEFAULT_MENU_WIDTH} from "./../../constants"
 
 export const defaultState = {
   menuSize: DEFAULT_MENU_WIDTH,
@@ -11,31 +11,49 @@ export const defaultState = {
       id: 1,
       title: "Note 1",
       content: "Note 1 simple text",
-      folder: 1
+      folder: 1,
+      styles: {
+        textAlign: "left",
+        fontWeight: "bold",
+        textDecoration: "underline",
+        fontStyle: "italic"
+      }
     },
     {
       id: 2,
       title: "Note 2",
-      content: `Note 2 simple  very very very very very very 
-      very very very very very very very very very very very 
-      very very very very very very very very very very very 
+      content: `Note 2 simple  very very very very very very
       very very very very very very very very very very very
-      very very very very very very very very very very very 
-      very very very very very very very very very very very 
       very very very very very very very very very very very
-      very very very very very very very very very very very 
-      very very very very very very very very very very very 
-      very very very very very very very very very very very 
-      very very very very very very very very very very very 
-      very very very very very very very very very very very 
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
+      very very very very very very very very very very very
       very very very very very very very very very very very large text`,
-      folder: 1
+      folder: 1,
+      styles: {
+        textAlign: "center",
+        fontWeight: "normal",
+        textDecoration: "underline",
+        fontStyle: "normal"
+      }
     },
     {
       id: 3,
       title: "Note 3",
       content: "Note 3 simple text",
-      folder: 2
+      folder: 2,
+      styles: {
+        textAlign: "right",
+        fontWeight: "normal",
+        textDecoration: "none",
+        fontStyle: "italic"
+      }
     },
     {
       id: 4,

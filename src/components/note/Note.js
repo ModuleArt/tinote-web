@@ -1,6 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 import {$} from "../../core/dom";
-import {changeText} from "../../redux/actions";
+import {changeText, changeStyles} from "../../redux/actions";
+import {camelCaseToDash} from "../../core/utils";
 
 export class Note extends TinoteComponent {
   static className = "note-note"
@@ -17,6 +18,12 @@ export class Note extends TinoteComponent {
 
   init() {
     super.init()
+
+    this.$on("toolbar:changeStyles", value => {
+      this.$dispatch(changeStyles({styles: value,
+        id: this.store.getState().currentNote}))
+      this.$root.html(this.toHTML())
+    })
   }
 
   storeChanged(changes) {
@@ -39,9 +46,16 @@ export class Note extends TinoteComponent {
 
   toHTML() {
     const state = this.store.getState()
-    const note = state.notes.filter(n => n.id === state.currentNote)[0]
+    const note = state.notes.find(n => n.id === state.currentNote)
+
+    const styles = JSON.parse(JSON.stringify(note.styles))
+
+    const htmlStyles = Object.keys(styles).map(key => {
+      return `${camelCaseToDash(key)} : ${styles[key]}`
+    }).join(";")
+
     return `
-    <div data-type="note-content" contenteditable>
+    <div style="${htmlStyles};" data-type="note-content" contenteditable>
       ${note.content}
     </div>
     `

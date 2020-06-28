@@ -14,3 +14,10 @@ export const initialFolder = {
   id: -100,
   name: "Folder"
 }
+
+export const defaultStyles = {
+  textAlign: "left",
+  fontWeight: "normal",
+  textDecoration: "none",
+  fontStyle: "normal"
+}

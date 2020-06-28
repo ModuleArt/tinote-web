@@ -8,7 +8,8 @@ import {SELECT_FOLDER,
   ADD_NOTE,
   ADD_FOLDER,
   RENAME_FOLDER,
-  CHANGE_TEXT
+  CHANGE_TEXT,
+  CHANGE_STYLES
 } from "./types"
 
 export function rootReducer(state, action) {
@@ -51,6 +52,21 @@ export function rootReducer(state, action) {
     return {...state, notes: state.notes.map(n => {
       if (n.id === action.data.id) {
         return {...n, content: action.data.content}
+      }
+      return n
+    })}
+
+  case CHANGE_STYLES:
+    return {...state, notes: state.notes.map(n => {
+      if (n.id === action.data.id) {
+        const styleName = Object.keys(action.data.styles)[0]
+        return {
+          ...n,
+          styles: {
+            ...n.styles,
+            [styleName]: action.data.styles[styleName]
+          }
+        }
       }
       return n
     })}

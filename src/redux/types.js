@@ -8,6 +8,7 @@ export const ADD_NOTE = "ADD_NOTE"
 export const DELETE_NOTE = "DELETE_NOTE"
 export const RENAME_NOTE = "RENAME_NOTE"
 export const CHANGE_TEXT = "CHANGE_TEXT"
+export const CHANGE_STYLES = "CHANGE_STYLES"
 
 export const CHANGE_MENU_SIZE = "CHANGE_MENU_SIZE"
 export const CHANGE_LIST_SIZE = "CHANGE_LIST_SIZE"

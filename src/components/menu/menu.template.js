@@ -72,7 +72,6 @@ function createFoldersList(folders, currentFolder) {
 }
 
 export function createMenu(state) {
-  console.log(state.folders)
   return `
   <div class="wrapper" data-resize='true' style="width:${state.menuSize};">
   <div class="profile">
