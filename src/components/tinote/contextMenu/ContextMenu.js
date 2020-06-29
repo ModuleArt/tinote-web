@@ -1,5 +1,5 @@
 import {TinoteComponent} from "@core/TinoteComponent";
-import {$} from "../../core/dom";
+import {$} from "@core/dom";
 import {createContextMenu} from "./contextMenu.template";
 
 export class ContextMenu extends TinoteComponent {

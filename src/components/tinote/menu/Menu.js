@@ -1,14 +1,14 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 import {createMenu} from "./menu.template";
-import {$} from "../../core/dom";
-import {resize, changeSelectionOfItem} from "../../core/utils";
+import {$} from "@core/dom";
+import {resize, changeSelectionOfItem} from "@core/utils";
 import {selectFolder,
   changeMenuSize,
   deleteFolder,
   renameFolder,
   addFolder
-} from "./../../redux/actions";
-import {initialFolder} from "../../../constants";
+} from "./../../../redux/actions";
+import {initialFolder} from "@/constants";
 
 export class Menu extends TinoteComponent {
   static className = "tinote__menu"

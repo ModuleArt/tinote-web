@@ -1,13 +1,13 @@
 import {TinoteComponent} from "@core/TinoteComponent";
-import {$} from "../../core/dom";
-import {resize, changeSelectionOfItem} from "../../core/utils";
+import {$} from "@core/dom";
+import {resize, changeSelectionOfItem} from "@core/utils";
 import {createlistOfNotes} from "./listOfNotes.template";
 import {
   selectNote,
   changeListSize,
   deleteNote,
   addNote
-} from "../../redux/actions";
+} from "../../../redux/actions";
 import {initialNote} from "../../../constants";
 
 export class ListOfNotes extends TinoteComponent {

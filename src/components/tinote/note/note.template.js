@@ -1,4 +1,4 @@
-import {camelCaseToDash} from "../../core/utils"
+import {camelCaseToDash} from "@core/utils"
 
 export function createNote(state) {
   const note = state.notes.find(n => n.id === state.currentNote)

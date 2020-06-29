@@ -4,7 +4,7 @@ import {Emitter} from "./../../core/Emitter";
 
 export class Tinote {
   constructor(options) {
-    this.$el = $(options.selector)
+    this.$root = null
     this.components = options.components || []
     this.store = options.store
     this.emitter = new Emitter()
@@ -32,11 +32,13 @@ export class Tinote {
   }
 
   render() {
-    this.$el.append(this.getRoot())
+    this.$root = this.getRoot()
     this.storeSubscriber.subscribeComponents(this.components)
     this.components.forEach(element => {
       element.init()
     });
+
+    return this.$root
   }
 
   destroy() {

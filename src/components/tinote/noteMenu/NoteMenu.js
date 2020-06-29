@@ -1,7 +1,7 @@
 import {TinoteComponent} from "@core/TinoteComponent";
 import {createNoteMenu} from "./noteMenu.template";
-import {renameNote, deleteNote} from "../../redux/actions";
-import {$} from "../../core/dom";
+import {renameNote, deleteNote} from "@/redux/actions";
+import {$} from "@core/dom";
 
 export class NoteMenu extends TinoteComponent {
   static className = "note-menu"
