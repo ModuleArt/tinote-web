@@ -1,6 +1,6 @@
 import {TinoteComponent} from "@core/TinoteComponent";
-import {$} from "../../core/dom";
-import {changeText, changeStyles} from "../../redux/actions";
+import {$} from "@core/dom";
+import {changeText, changeStyles} from "@/redux/actions";
 import {createNote} from "./note.template";
 
 export class Note extends TinoteComponent {

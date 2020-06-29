@@ -1,7 +1,7 @@
 import {TinoteStateComponent} from "@core/TinoteStateComponent";
-import {defaultStyles} from "../../../constants";
+import {defaultStyles} from "@/constants";
 import {createToolbar} from "./toolbar.template";
-import {$} from "../../core/dom";
+import {$} from "@core/dom";
 
 export class Toolbar extends TinoteStateComponent {
   static className = "note-toolbar"

@@ -13,6 +13,11 @@ class DOM {
     this.$el.removeEventListener(eventType, callback)
   }
 
+  clear() {
+    this.html("")
+    return this
+  }
+
   append(node) {
     if (node instanceof DOM) {
       node = node.$el

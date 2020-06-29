@@ -1,5 +1,5 @@
-import {TRASH_ID} from "./../../constants"
-import {DEFAULT_LIST_WIDTH, DEFAULT_MENU_WIDTH} from "./../../constants"
+import {TRASH_ID} from "@/constants"
+import {DEFAULT_LIST_WIDTH, DEFAULT_MENU_WIDTH} from "@/constants"
 
 export const defaultState = {
   menuSize: DEFAULT_MENU_WIDTH,
