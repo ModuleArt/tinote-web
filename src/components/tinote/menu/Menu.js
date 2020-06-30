@@ -1,4 +1,4 @@
-import {TinoteComponent} from "@core/TinoteComponent";
+import {Component} from "@core/Component";
 import {createMenu} from "./menu.template";
 import {$} from "@core/dom";
 import {resize, changeSelectionOfItem} from "@core/utils";
@@ -10,7 +10,7 @@ import {selectFolder,
 } from "./../../../redux/actions";
 import {initialFolder} from "@/constants";
 
-export class Menu extends TinoteComponent {
+export class Menu extends Component {
   static className = "tinote__menu"
 
   constructor($root, options) {
@@ -22,7 +22,7 @@ export class Menu extends TinoteComponent {
     )
     this.$root = $root
     this.store = options.store
-
+    this.firebase = options.firebase
     this.prevCurrentFolder = -1
   }
 
@@ -42,6 +42,19 @@ export class Menu extends TinoteComponent {
     super.init()
 
     this.prevCurrentFolder = this.store.getState().currentFolder
+
+    window.onclick = function(event) {
+      if (!event.target.matches(".dropbtn")) {
+        const dropdowns = document.getElementsByClassName("dropdown-content")
+        for (let i = 0; i < dropdowns.length; i++) {
+          const openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains("show")) {
+            openDropdown.classList.remove("show");
+          }
+        }
+      }
+    }
+
 
     this.$on("folder:rename", data => {
       console.log("folder:rename = ", data)
@@ -82,15 +95,26 @@ export class Menu extends TinoteComponent {
     return this.$root.find(`[data-id="${id}"]`)
   }
 
+  signOut() {
+    this.firebase.auth().signOut()
+    window.location.hash = "login"
+  }
+
   onClick(event) {
     const $target = $(event.target)
     const $wrap = $target.closest("[data-type]")
 
     if ($wrap) {
-      if ($wrap.data.type === "folder") {
+      let id
+
+      switch ($wrap.data.type) {
+      case ("folder"):
         this.$dispatch(selectFolder(parseInt($wrap.data.id)))
-      } else if ($wrap.data.type === "newFolder") {
-        const id = Math.max(...this.store.getState().folders.map(f => f.id)) + 1
+        break
+
+      case ("newFolder"):
+        id = Math.max(...this.store.getState().folders
+          .map(f => f.id)) + 1
 
         this.$dispatch(addFolder({
           ...initialFolder,
@@ -100,6 +124,16 @@ export class Menu extends TinoteComponent {
         this.$dispatch(selectFolder(id))
 
         this.rename(id)
+        break
+
+      case ("drop-down"):
+        this.$root.find("#myDropdown").toggleClass("show")
+        break
+
+      case ("sign-out"):
+        this.signOut()
+        break
+      default:
       }
     }
   }

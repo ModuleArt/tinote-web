@@ -1,8 +1,8 @@
-import {TinoteComponent} from "@core/TinoteComponent";
+import {Component} from "@core/Component";
 import {$} from "@core/dom";
 import {createContextMenu} from "./contextMenu.template";
 
-export class ContextMenu extends TinoteComponent {
+export class ContextMenu extends Component {
   static className = "context-menu"
 
   constructor($root, options) {

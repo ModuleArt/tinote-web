@@ -7,6 +7,7 @@ export class Tinote {
     this.$root = null
     this.components = options.components || []
     this.store = options.store
+    this.firebase = options.firebase
     this.emitter = new Emitter()
     this.storeSubscriber = new StoreSubscriber(this.store)
   }
@@ -19,7 +20,8 @@ export class Tinote {
 
       const component = new Component($el, {
         store: this.store,
-        emitter: this.emitter
+        emitter: this.emitter,
+        firebase: this.firebase
       })
 
       $el.html(component.toHTML())

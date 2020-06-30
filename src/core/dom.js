@@ -95,6 +95,14 @@ class DOM {
   removeClass(className) {
     this.$el.classList.remove(className);
   }
+
+  toggleClass(className) {
+    this.$el.classList.toggle(className)
+  }
+
+  outerHTML() {
+    return this.$el.outerHTML
+  }
 }
 
 export function $($el) {

@@ -1,4 +1,4 @@
-import {TinoteComponent} from "@core/TinoteComponent";
+import {Component} from "@core/Component";
 import {$} from "@core/dom";
 import {resize, changeSelectionOfItem} from "@core/utils";
 import {createlistOfNotes} from "./listOfNotes.template";
@@ -10,7 +10,7 @@ import {
 } from "../../../redux/actions";
 import {initialNote} from "../../../constants";
 
-export class ListOfNotes extends TinoteComponent {
+export class ListOfNotes extends Component {
   static className = "tinote__list-of-notes"
 
   constructor($root, options) {

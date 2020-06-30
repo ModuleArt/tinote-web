@@ -1,4 +1,6 @@
 import {TRASH_ID, ALL_NOTES_ID} from "../../../constants"
+// import loader from "../../loader/loader"
+
 
 function createFolder(currentFolder) {
   const currentFold = parseInt(currentFolder)
@@ -83,16 +85,20 @@ export function createMenu(state) {
   <div class="wrapper" data-resize='true' style="width:${state.menuSize};">
     <div class="profile">
       <img src="./profile-img.png" alt="" class="img">
-      <div class="name">Jeka Volynko</div>
+
+      <div data-type="drop-down" class="dropdown name">
+        <button data-type="drop-down" class="dropbtn">Denis Shavshin</button>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="#" data-type="sign-out">Sign out</a>
+        </div>
+      </div>
+
     </div>
 
     ${createFoldersList(state.folders, state.currentFolder)}
 
-    <div class="settings">
-      <span class="material-icons">
-        settings
-        </span>
-        Settings
+    <div class="connect-info">
+    
     </div>
 
   </div>

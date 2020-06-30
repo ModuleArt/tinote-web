@@ -1,9 +1,9 @@
-import {TinoteStateComponent} from "@core/TinoteStateComponent";
+import {StateComponent} from "@core/StateComponent";
 import {defaultStyles} from "@/constants";
 import {createToolbar} from "./toolbar.template";
 import {$} from "@core/dom";
 
-export class Toolbar extends TinoteStateComponent {
+export class Toolbar extends StateComponent {
   static className = "note-toolbar"
 
   constructor($root, options) {

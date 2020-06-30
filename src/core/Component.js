@@ -1,14 +1,14 @@
 import {DOMListener} from "./DOMListener";
 
-export class TinoteComponent extends DOMListener {
+export class Component extends DOMListener {
   constructor($root, options = {}) {
     super($root, options.listeners)
     this.name = options.name
     this.store = options.store
     this.subscribe = options.subscribe || []
-    this.prepare()
     this.emitter = options.emitter
     this.unsubs = []
+    this.prepare()
   }
 
   prepare() {}

@@ -15,6 +15,13 @@ import {ContextMenu} from "../components/tinote/contextMenu/ContextMenu"
 export class TinotePage extends Page {
   static route = "tinote"
 
+  constructor(options) {
+    super()
+
+    this.firebase = options.firebase
+    this.tinote = null
+  }
+
   async getRoot() {
     const state = defaultState
     const db = new IndexedDBClient()
@@ -44,7 +51,7 @@ export class TinotePage extends Page {
     store.subscribe(processor.listen)
     // const store = createStore(rootReducer, defaultState)
 
-    const tinote = new Tinote({
+    this.tinote = new Tinote({
       components: [
         Menu,
         ListOfNotes,
@@ -53,9 +60,14 @@ export class TinotePage extends Page {
         Note,
         ContextMenu
       ],
-      store
+      store,
+      firebase: this.firebase
     })
 
-    return tinote.render()
+    return this.tinote.render()
+  }
+
+  destroy() {
+    this.tinote.destroy()
   }
 }

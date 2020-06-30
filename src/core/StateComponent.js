@@ -1,6 +1,6 @@
-import {TinoteComponent} from "./TinoteComponent";
+import {Component} from "./Component";
 
-export class TinoteStateComponent extends TinoteComponent {
+export class StateComponent extends Component {
   constructor(...args) {
     super(...args)
   }
