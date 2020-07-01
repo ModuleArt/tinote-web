@@ -1,50 +1,90 @@
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDvc6lij9iMoZ8tDBfLghISPKJtqx_L54U",
-  authDomain: "tinote-5fd77.firebaseapp.com",
-  databaseURL: "https://tinote-5fd77.firebaseio.com",
-  projectId: "tinote-5fd77",
-  storageBucket: "tinote-5fd77.appspot.com",
-  messagingSenderId: "207256672485",
-  appId: "1:207256672485:web:94c7f77f99e19706da9c0c"
-};
-
+import {isDifferenceBetweenArrays} from "../core/utils";
 
 export class FirebaseDBClient {
-  constructor() {}
+  constructor(firebase) {
+    this.firebase = firebase
+    this.db = null
+
+    this.notes = []
+    this.folders = []
+  }
 
   init() {
     return new Promise(resolve => {
-      firebase.initializeApp(firebaseConfig);
-
-      this.db = firebase.firestore();
-      resolve()
+      this.db = this.firebase.firestore()
+      resolve(true)
     })
   }
 
   save(state) {
+    const notesDiff = isDifferenceBetweenArrays(this.notes, state.notes)
+    const foldersDiff = isDifferenceBetweenArrays(this.folders, state.folders)
+
+    if (!notesDiff.isDiffer && !foldersDiff.isDiffer) {
+      return true
+    }
+
+
     return new Promise(resolve => {
-    })
-  }
-  get() {
-    return new Promise(resolve => {
-      let folders
-      this.db.collection("folders").get().then(querySnapshot => {
-        folders = querySnapshot.map(doc => {
-          return doc.data()
-        });
-      })
-      let notes
-      this.db.collection("notes").get().then(querySnapshot => {
-        notes = querySnapshot.map(doc => {
-          return doc.data()
-        });
+      const batch = this.db.batch()
+
+      foldersDiff.deleted.forEach(folder => {
+        const docRef = this.db.collection("folders").doc(folder.id);
+        batch.delete(docRef);
       })
 
-      resolve({folders: folders, notes: notes})
+      notesDiff.deleted.forEach(note => {
+        const docRef = this.db.collection("notes").doc(note.id);
+        batch.delete(docRef);
+      })
+
+      foldersDiff.updated.forEach(folder => {
+        const docRef = this.db.collection("folders").doc(folder.id)
+        batch.set(docRef, {
+          name: folder.name,
+        })
+      })
+      notesDiff.updated.forEach(note => {
+        const docRef = this.db.collection("notes").doc(note.id)
+        batch.set(docRef, {
+          title: note.title,
+          content: note.content,
+          styles: note.styles,
+          folder: note.folder
+        })
+      })
+
+      batch.commit().then(() => {
+        resolve(true)
+      });
+    })
+  }
+
+  getAll(collection) {
+    return new Promise(resolve => {
+      this.db.collection(collection).get().then(querySnapshot => {
+        const docs = []
+        querySnapshot.forEach(doc => {
+          docs.push({id: doc.id, ...doc.data()})
+        });
+        resolve(docs)
+      })
+    })
+  }
+
+  async get() {
+    return new Promise(resolve => {
+      this.getAll("notes")
+        .then(resolve1 => {
+          const notes = resolve1
+          this.getAll("folders")
+            .then(resolve2 => {
+              this.notes = notes
+              this.folders = resolve2
+              resolve({folders: resolve2, notes: notes})
+            })
+        }
+        )
     })
   }
 }

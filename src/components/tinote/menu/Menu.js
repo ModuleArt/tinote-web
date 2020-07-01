@@ -23,7 +23,8 @@ export class Menu extends Component {
     this.$root = $root
     this.store = options.store
     this.firebase = options.firebase
-    this.prevCurrentFolder = -1
+    this.prevCurrentFolder = null
+    this.db = this.firebase.firestore()
   }
 
   storeChanged(changes) {
@@ -57,13 +58,11 @@ export class Menu extends Component {
 
 
     this.$on("folder:rename", data => {
-      console.log("folder:rename = ", data)
       this.rename(data)
     })
 
     this.$on("folder:delete", data => {
-      this.$dispatch(deleteFolder(parseInt(data)))
-      console.log("folder:delete = ", data)
+      this.$dispatch(deleteFolder(data))
     })
   }
 
@@ -79,7 +78,7 @@ export class Menu extends Component {
       folderName.onkeydown = null
       folderName.setAttribute("contenteditable", "false")
       this.$dispatch(renameFolder({
-        id: parseInt(id),
+        id: id,
         name: folderName.innerHTML
       }))
     }
@@ -103,18 +102,16 @@ export class Menu extends Component {
   onClick(event) {
     const $target = $(event.target)
     const $wrap = $target.closest("[data-type]")
-
     if ($wrap) {
       let id
 
       switch ($wrap.data.type) {
       case ("folder"):
-        this.$dispatch(selectFolder(parseInt($wrap.data.id)))
+        this.$dispatch(selectFolder($wrap.data.id))
         break
 
       case ("newFolder"):
-        id = Math.max(...this.store.getState().folders
-          .map(f => f.id)) + 1
+        id = this.db.collection("folders").doc().id
 
         this.$dispatch(addFolder({
           ...initialFolder,

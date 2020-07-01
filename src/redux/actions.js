@@ -9,7 +9,8 @@ import {SELECT_FOLDER,
   ADD_NOTE,
   ADD_FOLDER,
   CHANGE_TEXT,
-  CHANGE_STYLES
+  CHANGE_STYLES,
+  UPDATE_FROM_CLOUD
 } from "./types"
 
 export function selectFolder(data) {
@@ -92,6 +93,13 @@ export function changeMenuSize(data) {
 export function changeListSize(data) {
   return {
     type: CHANGE_LIST_SIZE,
+    data
+  }
+}
+
+export function updateFromCloud(data) {
+  return {
+    type: UPDATE_FROM_CLOUD,
     data
   }
 }

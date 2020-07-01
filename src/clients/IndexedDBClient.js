@@ -1,6 +1,6 @@
 import {isDifferenceBetweenArrays} from "../core/utils"
 
-const DB_VERSION = 3
+const DB_VERSION = 1
 
 export class IndexedDBClient {
   constructor() {
@@ -12,11 +12,15 @@ export class IndexedDBClient {
   }
 
   deleteAllObjectStores(db) {
-    db.objectStoreNames.forEach(name => {
-      if (typeof name === "string") {
-        db.deleteObjectStore(name)
-      }
-    })
+    // db.deleteObjectStore("notes")
+    // db.deleteObjectStore("folders")
+    // if (db.objectStoreNames) {
+    //   db.objectStoreNames.forEach(name => {
+    //     if (typeof name === "string") {
+    //       db.deleteObjectStore(name)
+    //     }
+    //   })
+    // }
     return true
   }
 

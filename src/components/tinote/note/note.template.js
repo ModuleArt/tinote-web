@@ -1,7 +1,8 @@
 import {camelCaseToDash} from "@core/utils"
 
 export function createNote(state) {
-  const note = state.notes.find(n => n.id === state.currentNote)
+  let note = state.notes.find(n => n.id === state.currentNote)
+  if (!note) note = state.notes[0]
 
   const styles = JSON.parse(JSON.stringify(note.styles))
 

@@ -7,6 +7,7 @@ export class Router {
     this.firebase = options.firebase
 
     this.currentPage = null
+    this.loading = false
   }
 
   init() {
@@ -22,7 +23,7 @@ export class Router {
     return new Promise(resolve => {
       this.firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          setTimeout(() => resolve(user), 1000)
+          resolve(user)
           console.log("User is signed in")
         } else {
           resolve(null)
@@ -33,8 +34,10 @@ export class Router {
   }
 
   async switchRoute() {
-    console.log(loader())
-    this.app.clear().append(loader())
+    if (!this.loading) {
+      this.loading = true
+      this.app.clear().append(loader())
+    }
 
     const auth = await this.isUserLogged()
     if (auth) {
@@ -53,7 +56,7 @@ export class Router {
     }
     this.currentPage = new CurrentPage({firebase: this.firebase})
     const $root = await this.currentPage.getRoot()
-
+    this.false = true
     this.app.clear().append($root)
   }
 }

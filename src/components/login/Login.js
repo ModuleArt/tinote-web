@@ -32,13 +32,13 @@ export class Login {
         console.error(error.message)
       })
       .then(() => {
-        window.location.hash = "tinote"
+        // window.location.hash = "tinote"
       })
     this.firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         window.location.hash = "tinote"
       } else {
-        // No user is signed in.
+        window.location.hash = "login"
       }
     });
   }
@@ -53,14 +53,13 @@ export class Login {
         console.error(error.message)
       })
       .then(() => {
-        window.location.hash = "tinote"
+        // window.location.hash = "tinote"
       })
     this.firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log("ebaaaaaaaaaaaaaa")
         window.location.hash = "tinote"
       } else {
-        // No user is signed in.
+        window.location.hash = "login"
       }
     });
   }

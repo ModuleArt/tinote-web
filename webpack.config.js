@@ -3,6 +3,7 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin")
 const HTMLWebpackPlugin = require("html-webpack-plugin")
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const isProd = process.env.NODE_ENV === "production"
 const isDev = !isProd
@@ -28,8 +29,20 @@ const jsLoaders = () => {
 }
 
 module.exports = {
+  optimization: {
+    minimize: isProd,
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          output: {
+            comments: false
+          }
+        }
+      })
+    ],
+  },
   context: path.resolve(__dirname, "src"),
-  mode: "development",
+  mode: isDev ? "development" : "production",
   entry: ["@babel/polyfill", "./index.js"],
   output: {
     filename: filename("js"),

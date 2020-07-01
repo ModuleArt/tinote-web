@@ -9,7 +9,8 @@ import {SELECT_FOLDER,
   ADD_FOLDER,
   RENAME_FOLDER,
   CHANGE_TEXT,
-  CHANGE_STYLES
+  CHANGE_STYLES,
+  UPDATE_FROM_CLOUD
 } from "./types"
 
 export function rootReducer(state, action) {
@@ -76,6 +77,9 @@ export function rootReducer(state, action) {
 
   case CHANGE_LIST_SIZE:
     return {...state, listOfNotesSize: action.data}
+
+  case UPDATE_FROM_CLOUD:
+    return {...state, notes: action.data.notes, folders: action.data.folders}
 
   case "__INIT__":
   default: return state

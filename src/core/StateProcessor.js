@@ -7,7 +7,6 @@ export class StateProcessor {
   }
 
   listen(state) {
-    console.log("listen")
     return this.client.save(state)
   }
 

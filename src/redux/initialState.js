@@ -4,14 +4,14 @@ import {DEFAULT_LIST_WIDTH, DEFAULT_MENU_WIDTH} from "@/constants"
 export const defaultState = {
   menuSize: DEFAULT_MENU_WIDTH,
   listOfNotesSize: DEFAULT_LIST_WIDTH,
-  currentFolder: 1,
-  currentNote: 1,
+  currentFolder: "1",
+  currentNote: "1",
   notes: [
     {
-      id: 1,
+      id: "1",
       title: "Note 1",
       content: "Note 1 simple text",
-      folder: 1,
+      folder: "1",
       styles: {
         textAlign: "left",
         fontWeight: "bold",
@@ -20,7 +20,7 @@ export const defaultState = {
       }
     },
     {
-      id: 2,
+      id: "2",
       title: "Note 2",
       content: `Note 2 simple  very very very very very very
       very very very very very very very very very very very
@@ -35,7 +35,7 @@ export const defaultState = {
       very very very very very very very very very very very
       very very very very very very very very very very very
       very very very very very very very very very very very large text`,
-      folder: 1,
+      folder: "1",
       styles: {
         textAlign: "center",
         fontWeight: "normal",
@@ -44,10 +44,10 @@ export const defaultState = {
       }
     },
     {
-      id: 3,
+      id: "3",
       title: "Note 3",
       content: "Note 3 simple text",
-      folder: 2,
+      folder: "2",
       styles: {
         textAlign: "right",
         fontWeight: "normal",
@@ -56,29 +56,41 @@ export const defaultState = {
       }
     },
     {
-      id: 4,
+      id: "4",
       title: "Note 4",
       content: "Note 4 simple text",
-      folder: TRASH_ID
+      folder: TRASH_ID,
+      styles: {
+        textAlign: "right",
+        fontWeight: "normal",
+        textDecoration: "none",
+        fontStyle: "italic"
+      }
     },
     {
-      id: 5,
+      id: "5",
       title: "Note 5",
       content: "Note 5 simple text",
-      folder: TRASH_ID
+      folder: TRASH_ID,
+      styles: {
+        textAlign: "right",
+        fontWeight: "normal",
+        textDecoration: "none",
+        fontStyle: "italic"
+      }
     }
   ],
   folders: [
     {
-      id: 1,
+      id: "1",
       name: "Folder 1"
     },
     {
-      id: 2,
+      id: "2",
       name: "Folder 2"
     },
     {
-      id: 3,
+      id: "3",
       name: "Folder 3"
     }
   ]

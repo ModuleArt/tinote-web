@@ -26,8 +26,8 @@ function toNote(currentNote) {
 }
 
 export function createlistOfNotes(state) {
-  const currentFolder = parseInt(state.currentFolder)
-  const currentNote = parseInt(state.currentNote)
+  const currentFolder = state.currentFolder
+  const currentNote = state.currentNote
 
   const notesData = currentFolder !== ALL_NOTES_ID
     ? state.notes.filter(n => n.folder === currentFolder)

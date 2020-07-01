@@ -78,8 +78,11 @@ export function isDifferenceBetweenArrays(prevArr, newArr) {
 }
 
 export function changeSelectionOfItem($root, prevItemId, currentItemId) {
-  $root.find(`[data-id='${prevItemId}']`)
-    .removeClass("selected")
+  if (prevItemId) {
+    $root.find(`[data-id='${prevItemId}']`)
+      .removeClass("selected")
+  }
+
   $root.find(`[data-id='${currentItemId}']`)
     .addClass("selected")
 }

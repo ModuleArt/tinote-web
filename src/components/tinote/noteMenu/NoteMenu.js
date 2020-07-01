@@ -37,7 +37,7 @@ export class NoteMenu extends Component {
       noteTitle.$el.onkeydown = null
       noteTitle.attr("contenteditable", "false")
       this.$dispatch(renameNote({
-        id: parseInt(id),
+        id: id,
         title: noteTitle.html()
       }))
     }

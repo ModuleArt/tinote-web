@@ -23,6 +23,8 @@ export class ListOfNotes extends Component {
     this.store = options.store
     this.$root = $root
     this.prevCurrentNote = -1
+    this.firebase = options.firebase
+    this.db = this.firebase.firestore()
   }
 
   init() {
@@ -30,7 +32,7 @@ export class ListOfNotes extends Component {
     this.prevCurrentNote = this.store.getState().currentNote
 
     this.$on("note-item:delete", data => {
-      this.$dispatch(deleteNote(parseInt(data)))
+      this.$dispatch(deleteNote(data))
     })
   }
 
@@ -56,9 +58,9 @@ export class ListOfNotes extends Component {
 
     if ($wrap) {
       if ($wrap.data.type === "note-item") {
-        this.$dispatch(selectNote(parseInt($wrap.data.id)))
+        this.$dispatch(selectNote($wrap.data.id))
       } else if ($wrap.data.type === "add-note") {
-        const id = Math.max(...this.store.getState().notes.map(n => n.id)) + 1
+        const id = this.db.collection("notes").doc().id
 
         this.$dispatch(addNote({
           ...initialNote,

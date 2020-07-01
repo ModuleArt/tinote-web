@@ -1,8 +1,10 @@
 export function createNoteMenu(state) {
-  const note = state.notes.filter(n => n.id === state.currentNote)[0]
+  let note = state.notes.find(n => n.id === state.currentNote)
+  if (!note) note = state.notes[0]
   return `
   <div class="wrapper" data-type="wrapper">
-    <div class="name-of-note" data-type="note-title">${note.title}</div>
+    <div class="name-of-note" 
+    data-type="note-title">${note ? note.title : ""}</div>
     <div class="note-buttons">
 
       <div class="button" data-type="info">

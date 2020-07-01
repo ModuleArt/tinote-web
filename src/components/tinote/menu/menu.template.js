@@ -1,12 +1,12 @@
 import {TRASH_ID, ALL_NOTES_ID} from "../../../constants"
-// import loader from "../../loader/loader"
+import loader from "../../loader/loader"
 
 
 function createFolder(currentFolder) {
-  const currentFold = parseInt(currentFolder)
+  const currentFold = currentFolder
 
   return folder => {
-    const selected = currentFold === parseInt(folder.id)
+    const selected = currentFold === folder.id
       ? "folder-selected"
       : ""
 
@@ -20,7 +20,7 @@ function createFolder(currentFolder) {
         folder
       </span>
 
-      <p data-type="folder-name">
+      <p>
       ${folder.name}
       </p>
 
@@ -30,7 +30,7 @@ function createFolder(currentFolder) {
 }
 
 function createFoldersList(folders, currentFolder) {
-  const currentFold = parseInt(currentFolder)
+  const currentFold = currentFolder
   const foldersHTML = folders.map(createFolder(currentFold)).join("")
 
   const isTrash = currentFold === TRASH_ID
@@ -98,7 +98,7 @@ export function createMenu(state) {
     ${createFoldersList(state.folders, state.currentFolder)}
 
     <div class="connect-info">
-    
+    ${loader().outerHTML()}
     </div>
 
   </div>

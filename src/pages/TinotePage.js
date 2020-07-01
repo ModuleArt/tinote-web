@@ -11,6 +11,7 @@ import {Note} from "../components/tinote/note/Note"
 import {NoteMenu} from "../components/tinote/noteMenu/NoteMenu"
 import {Toolbar} from "../components/tinote/toolbar/Toolbar"
 import {ContextMenu} from "../components/tinote/contextMenu/ContextMenu"
+import {FirebaseDBClient} from "../clients/FirebaseDBClient"
 
 export class TinotePage extends Page {
   static route = "tinote"
@@ -26,9 +27,15 @@ export class TinotePage extends Page {
     const state = defaultState
     const db = new IndexedDBClient()
     await db.init()
-    const processor = new StateProcessor(db, 5000)
+    const IDBProcessor = new StateProcessor(db, 5000)
 
-    const result = await processor.get()
+    const firedb = new FirebaseDBClient(this.firebase)
+    await firedb.init()
+    const FireProcessor = new StateProcessor(firedb, 5000)
+
+    const result = await FireProcessor.get()
+    // const result = await IDBProcessor.get()
+
     let notes = []
     let folders = []
 
@@ -46,9 +53,14 @@ export class TinotePage extends Page {
     }
 
     const store = createStore(rootReducer,
-      {...state, notes: notes, folders: folders})
+      {...state,
+        notes: notes,
+        folders: folders,
+        currentFolder: folders[0].id,
+        currentNote: notes[0].id})
 
-    store.subscribe(processor.listen)
+    store.subscribe(IDBProcessor.listen)
+    store.subscribe(FireProcessor.listen)
     // const store = createStore(rootReducer, defaultState)
 
     this.tinote = new Tinote({
