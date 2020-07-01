@@ -5,10 +5,11 @@ import {createlistOfNotes} from "./listOfNotes.template";
 import {
   selectNote,
   changeListSize,
-  deleteNote,
-  addNote
+  addNote,
+  moveNoteToTrash
 } from "../../../redux/actions";
-import {initialNote} from "../../../constants";
+import {initialNote, TRASH_ID} from "../../../constants";
+import {modal, MODAL_YES} from "../../modal/Modal";
 
 export class ListOfNotes extends Component {
   static className = "tinote__list-of-notes"
@@ -22,17 +23,23 @@ export class ListOfNotes extends Component {
     )
     this.store = options.store
     this.$root = $root
-    this.prevCurrentNote = -1
+    this.prevCurrentNote = null
     this.firebase = options.firebase
     this.db = this.firebase.firestore()
   }
 
   init() {
     super.init()
-    this.prevCurrentNote = this.store.getState().currentNote
-
+    this.prevCurrentNote = this.store.getState().notes[0].id
+    console.log(this.prevCurrentNote)
     this.$on("note-item:delete", data => {
-      this.$dispatch(deleteNote(data))
+      modal("Are you sure?",
+        answer => {
+          if (answer === MODAL_YES) {
+            this.$dispatch(moveNoteToTrash(data))
+          }
+        }
+      )
     })
   }
 
@@ -46,11 +53,31 @@ export class ListOfNotes extends Component {
       this.prevCurrentNote = changes.currentNote
       break
 
-    case "currentFolder":
     case "notes":
+      this.$root.html(this.toHTML())
+      if (!this.store.getState().notes.length) {
+        if (!this.store.getState().currentFolder === TRASH_ID) {
+          this.addNote()
+        }
+      }
+      break
+    case "currentFolder":
     default:
       this.$root.html(this.toHTML())
     }
+  }
+
+  addNote() {
+    const id = this.db.collection("notes").doc().id
+
+    this.$dispatch(addNote({
+      ...initialNote,
+      id: id,
+      folder: this.store.getState().currentFolder
+    }))
+
+    this.$dispatch(selectNote(id))
+    this.$emit("note-item:rename", id)
   }
 
   onClick(event) {
@@ -60,16 +87,9 @@ export class ListOfNotes extends Component {
       if ($wrap.data.type === "note-item") {
         this.$dispatch(selectNote($wrap.data.id))
       } else if ($wrap.data.type === "add-note") {
-        const id = this.db.collection("notes").doc().id
-
-        this.$dispatch(addNote({
-          ...initialNote,
-          id: id,
-          folder: this.store.getState().currentFolder
-        }))
-
-        this.$dispatch(selectNote(id))
-        this.$emit("note-item:rename", id)
+        this.addNote()
+      } else if ($wrap.data.type === "clear-trash") {
+        this.$emit("trash:clear")
       }
     }
   }

@@ -10,7 +10,9 @@ import {SELECT_FOLDER,
   ADD_FOLDER,
   CHANGE_TEXT,
   CHANGE_STYLES,
-  UPDATE_FROM_CLOUD
+  UPDATE_FROM_CLOUD,
+  DELETE_ALL_NOTES_IN_FOLDER,
+  MOVE_NOTE_TO_TRASH
 } from "./types"
 
 export function selectFolder(data) {
@@ -62,6 +64,14 @@ export function deleteNote(data) {
   }
 }
 
+export function moveNoteToTrash(data) {
+  return {
+    type: MOVE_NOTE_TO_TRASH,
+    data
+  }
+}
+
+
 export function renameNote(data) {
   return {
     type: RENAME_NOTE,
@@ -100,6 +110,13 @@ export function changeListSize(data) {
 export function updateFromCloud(data) {
   return {
     type: UPDATE_FROM_CLOUD,
+    data
+  }
+}
+
+export function deleteAllNotesInFolder(data) {
+  return {
+    type: DELETE_ALL_NOTES_IN_FOLDER,
     data
   }
 }

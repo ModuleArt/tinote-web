@@ -7,7 +7,7 @@ function toNote(currentNote) {
     <li class="note-item ${selected}" 
     data-id="${note.id}" 
     data-type="note-item"
-    data-context="note-item">
+    data-context="note">
 
         <div class="text-data-wrapper">
           <div class="title">
@@ -35,7 +35,8 @@ export function createlistOfNotes(state) {
 
   const notes = notesData.map(toNote(currentNote)).join("")
 
-  const buttonInactive = currentFolder === TRASH_ID ? "inactive" : "add-note"
+  const buttonType = currentFolder === TRASH_ID ? "clear-trash" : "add-note"
+  const buttonIcon = currentFolder === TRASH_ID ? "delete_forever" : "post_add"
   return `
   <div class="wrapper"
     data-resize='true'
@@ -50,9 +51,9 @@ export function createlistOfNotes(state) {
         </span>
       </div>
 
-      <div class="button" data-type="${buttonInactive}">
+      <div class="button" data-type="${buttonType}">
         <span class="material-icons">
-          post_add
+         ${buttonIcon}
         </span>
       </div>
 

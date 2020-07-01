@@ -10,8 +10,11 @@ import {SELECT_FOLDER,
   RENAME_FOLDER,
   CHANGE_TEXT,
   CHANGE_STYLES,
-  UPDATE_FROM_CLOUD
+  UPDATE_FROM_CLOUD,
+  DELETE_ALL_NOTES_IN_FOLDER,
+  MOVE_NOTE_TO_TRASH
 } from "./types"
+import {TRASH_ID} from "../constants"
 
 export function rootReducer(state, action) {
   console.log("rootReducer : ", action)
@@ -21,6 +24,14 @@ export function rootReducer(state, action) {
 
   case DELETE_NOTE:
     return {...state, notes: state.notes.filter(n => n.id !== action.data)}
+
+  case MOVE_NOTE_TO_TRASH:
+    return {...state, notes: state.notes.map(n => {
+      if (n.id === action.data) {
+        return {...n, folder: TRASH_ID}
+      }
+      return n
+    })}
 
   case ADD_NOTE:
     return {...state, notes: state.notes.concat(action.data)}
@@ -38,6 +49,13 @@ export function rootReducer(state, action) {
 
   case DELETE_FOLDER:
     return {...state, folders: state.folders.filter(f => f.id !== action.data)}
+
+  case DELETE_ALL_NOTES_IN_FOLDER:
+    console.log(state.notes.filter(n => n.folder !== action.data))
+    return {
+      ...state,
+      notes: state.notes.filter(n => n.folder !== action.data)
+    }
 
   case ADD_FOLDER:
     return {...state, folders: state.folders.concat(action.data)}

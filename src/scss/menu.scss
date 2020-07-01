@@ -1,6 +1,14 @@
 @import "_variables";
 @import "_mixins";
 
+$dots: 3;
+$dot-width: 4px;
+$dot-start-opacity: 0.15;
+$dot-animation-speed: 1s;
+$dot-animation-scale: 1;
+
+
+
 .tinote__menu {
   display: flex;
   flex-direction: row;
@@ -131,22 +139,60 @@
     }
 
     .connect-info {
+      height: 40px;
+      border-top: 2px solid red;
       cursor: pointer;
       margin-top: auto;
-      margin-bottom: 10px;
-      margin-right: 10px;
-      margin-left: 7px;
-      display: flex;
-      align-items: center;
+      position: relative;
+      // display: flex;
+      // flex-direction: row;
+      // align-items: center;
+      // justify-content: start;
       padding: 3px;
-      span {
-        margin-right: 10px;
+
+      
+      .dot-loader {
+          height: $dot-width;
+          position: absolute;
+          right: 10px;
+          bottom: 18px - ($dot-width/2);
+          padding: $dot-width;
+          width: $dot-width * 5;
+      }
+
+      .dot {
+          background: #b7b7b7;
+          border-radius: 50%;
+          float: left;
+          height: $dot-width;
+          opacity: $dot-start-opacity;
+          position: relative;
+              left: 0;
+              top: 0;
+          transform: scale($dot-animation-scale);
+          width: $dot-width;
+          
+          @for $i from 1 to 4 { 
+              &:nth-child(#{$i}) {
+                  animation: dots-animation $dot-animation-speed ($i * 0.2s) ease-in-out infinite;
+                  left: $dot-width * ($i - 1) / 2;
+              }
+          }
+      }
+
+      // ANIMATIONS
+      @keyframes dots-animation {
+          0%, 70%, 100% { 
+              opacity: $dot-start-opacity;
+              transform: scale($dot-animation-scale);
+          }
+          35% {
+              opacity: 1;
+              transform: scale(1);
+          }
       }
     }
 
-    .settings.selected, .settings:hover {
-      background: $menu-folder-list-selected-color;
-      border-radius: 10px;
-    }
+    
   }
 }

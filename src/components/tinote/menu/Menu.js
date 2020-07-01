@@ -6,9 +6,12 @@ import {selectFolder,
   changeMenuSize,
   deleteFolder,
   renameFolder,
-  addFolder
+  addFolder,
+  deleteAllNotesInFolder
 } from "./../../../redux/actions";
 import {initialFolder} from "@/constants";
+import {modal, MODAL_YES} from "../../modal/Modal";
+import {TRASH_ID} from "../../../constants";
 
 export class Menu extends Component {
   static className = "tinote__menu"
@@ -34,15 +37,18 @@ export class Menu extends Component {
         changes.currentFolder
       )
       this.prevCurrentFolder = changes.currentFolder
-    } else {
+    } else if (Object.keys(changes)[0] === "folders") {
       this.$root.html(this.toHTML())
+      if (!this.store.getState().folders.length) {
+        this.createFolder()
+      }
     }
   }
 
   init() {
     super.init()
 
-    this.prevCurrentFolder = this.store.getState().currentFolder
+    this.prevCurrentFolder = this.store.getState().folders[0].id
 
     window.onclick = function(event) {
       if (!event.target.matches(".dropbtn")) {
@@ -62,9 +68,27 @@ export class Menu extends Component {
     })
 
     this.$on("folder:delete", data => {
-      this.$dispatch(deleteFolder(data))
+      modal("This action will delete all notes in the folder",
+        answer => {
+          if (answer === MODAL_YES) {
+            this.$dispatch(deleteAllNotesInFolder(data))
+            this.$dispatch(deleteFolder(data))
+          }
+        }
+      )
+    })
+
+    this.$on("trash:clear", () => {
+      modal("Are you sure?",
+        answer => {
+          if (answer === MODAL_YES) {
+            this.$dispatch(deleteAllNotesInFolder(TRASH_ID))
+          }
+        }
+      )
     })
   }
+
 
   rename(id) {
     const folderName = this.getFolder(id).children()[1]
@@ -99,28 +123,30 @@ export class Menu extends Component {
     window.location.hash = "login"
   }
 
+  createFolder() {
+    const id = this.db.collection("folders").doc().id
+
+    this.$dispatch(addFolder({
+      ...initialFolder,
+      id: id
+    }))
+
+    this.$dispatch(selectFolder(id))
+
+    this.rename(id)
+  }
+
   onClick(event) {
     const $target = $(event.target)
     const $wrap = $target.closest("[data-type]")
     if ($wrap) {
-      let id
-
       switch ($wrap.data.type) {
       case ("folder"):
         this.$dispatch(selectFolder($wrap.data.id))
         break
 
       case ("newFolder"):
-        id = this.db.collection("folders").doc().id
-
-        this.$dispatch(addFolder({
-          ...initialFolder,
-          id: id
-        }))
-
-        this.$dispatch(selectFolder(id))
-
-        this.rename(id)
+        this.createFolder()
         break
 
       case ("drop-down"):

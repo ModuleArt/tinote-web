@@ -17,6 +17,13 @@ export class ContextMenu extends Component {
     this.menuOptions = null
     this.menuVisible = false
 
+    this.trashOptions = [
+      {
+        event: "trash:clear",
+        buttonName: "Clear"
+      },
+    ]
+
     this.folderOptions = [
       {
         event: "folder:delete",
@@ -27,6 +34,7 @@ export class ContextMenu extends Component {
         buttonName: "Rename"
       }
     ]
+
     this.noteItemOptions = [
       {
         event: "note-item:delete",
@@ -60,9 +68,19 @@ export class ContextMenu extends Component {
     const $wrap = $(event.target).closest("[data-context]")
 
     if ($wrap && $wrap.data.context) {
-      const options = $wrap.data.context === "folder"
-        ? this.folderOptions
-        : this.noteItemOptions
+      let options
+
+      switch ($wrap.data.context) {
+      case "folder":
+        options = this.folderOptions
+        break
+      case "note":
+        options = this.noteItemOptions
+        break
+      case "trash":
+        options = this.trashOptions
+        break
+      }
 
       this.$root.html(createContextMenu(options))
 

@@ -1,5 +1,4 @@
 import {TRASH_ID, ALL_NOTES_ID} from "../../../constants"
-import loader from "../../loader/loader"
 
 
 function createFolder(currentFolder) {
@@ -7,7 +6,7 @@ function createFolder(currentFolder) {
 
   return folder => {
     const selected = currentFold === folder.id
-      ? "folder-selected"
+      ? "selected"
       : ""
 
     return `
@@ -68,7 +67,8 @@ function createFoldersList(folders, currentFolder) {
 
     <div class="horizontal-separator"></div>
 
-    <li class="folder ${isTrash}" data-type="folder" data-id="${TRASH_ID}" >
+    <li class="folder ${isTrash}" data-type="folder" 
+      data-context="trash" data-id="${TRASH_ID}" >
 
       <span class="material-icons">
         delete
@@ -98,7 +98,12 @@ export function createMenu(state) {
     ${createFoldersList(state.folders, state.currentFolder)}
 
     <div class="connect-info">
-    ${loader().outerHTML()}
+      <div class="dot-loader">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+      </div>
+
     </div>
 
   </div>

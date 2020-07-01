@@ -13,6 +13,10 @@ class DOM {
     this.$el.removeEventListener(eventType, callback)
   }
 
+  remove() {
+    this.$el.remove()
+  }
+
   clear() {
     this.html("")
     return this
