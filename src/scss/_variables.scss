@@ -1,17 +1,37 @@
 $header-height: 50px;
-
 $menu-width: 240px;
 $folder-content-width: 300px;
 $note-width: auto;
 $folder-content-toolbar-height: 100px;
 $folder-content-list-item-height: 100px;
-
 $note-menu-height: 50px;
 $note-toolbar-height: 50px;
 
-$body-background-color: #353232;
+$body-bg: rgba(#00adb5, 0.1);
 
-$menu-background-color: #1a1a1a;
-$menu-icon-color: #adadad;
-$menu-text-color: #adadad;
-$menu-folder-list-selected-color: #404040;
+$menu-bg: #222831;
+$menu-border: #393e46;
+$menu-focus: #00adb5;
+$menu-text: rgba($color: #eeeeee, $alpha: 0.70);
+$menu-focus-bg: rgba($color: #eeeeee, $alpha: 0.05);
+
+$resize-clr: #00adb5;
+
+$note-list-bg: #eeeeee;
+$note-list-text: #222831;
+$note-list-btn: rgba($color: #222831, $alpha: 0.90);
+$note-list-border: #ddd;
+$note-list-item-border: #eeeeee;
+$note-list-focus: rgba($color: #222831, $alpha: 0.05);
+
+$note-bg: #ffffff;
+$note-text: rgba($color: #222831, $alpha: 0.80); 
+$note-border: #ddd;
+$note-btn: rgba($color: #222831, $alpha: 0.80);
+$note-toolbar-border: #eeeeee;
+$note-focus: rgba($color: #222831, $alpha: 0.30);
+
+$modal-bg: #eeeeee;
+$modal-border: #393e46;
+$modal-text: #222831;
+$modal-button: #00adb5;

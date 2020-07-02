@@ -58,11 +58,9 @@ export function createlistOfNotes(state) {
       </div>
 
     </div>
-
-    <ul class="list-of-notes">
-      ${notes}  
-    </ul>
-  
+      <ul class="list-of-notes">
+        ${notes}  
+      </ul>
   </div>
   <div class="resize" data-resize="listOfNotes"></div>
   `

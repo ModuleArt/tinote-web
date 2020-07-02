@@ -87,7 +87,7 @@ export function createMenu(state) {
       <img src="./profile-img.png" alt="" class="img">
 
       <div data-type="drop-down" class="dropdown name">
-        <button data-type="drop-down" class="dropbtn">Denis Shavshin</button>
+        <div data-type="drop-down" class="dropbtn">Denis Shavshin</div>
         <div id="myDropdown" class="dropdown-content">
           <a href="#" data-type="sign-out">Sign out</a>
         </div>

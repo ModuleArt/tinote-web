@@ -11,9 +11,9 @@ export const modal = (message, callback) => {
     ${message}
     </div>
     <div class="buttons">
-      <div id="modalbtn-yes" class="modal-button">Yes</div>
-      <div id="modalbtn-no" class="modal-button">no</div>
-    <div class="buttons">
+      <div id="modalbtn-yes" class="modal-button">YES</div>
+      <div id="modalbtn-no" class="modal-button">NO</div>
+    </div>
   </div>
   `
   $el.html(html)

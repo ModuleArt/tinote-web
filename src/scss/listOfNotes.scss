@@ -7,56 +7,46 @@
   float:left;
 
   height: 100%;
-
+  max-height: 100%;
+  background-color: $note-list-bg;
   .resize {
     height: 100%;
     width: 3px;
-    background:#f0f0f0;
+    background:$note-list-border;
   }
 
   .resize:hover {
-    background: red;
+    background: $resize-clr;
     cursor: ew-resize;
   }
 
   .wrapper {
+    height: 100%;
+    max-height: 100%;
     min-width: 180px;
     max-width: 600px;
     display: flex;
     flex-direction: column;
-    background: #f8f8f8;
     width: $folder-content-width - 3;
   
     .toolbar {
       top: 0;
       height: $header-height;
       position: relative;
-      border-bottom: 2px solid red;
+      border-bottom: 2px solid $note-list-border;
       display: flex;
       align-items: center;
       justify-content: space-around;
-  
-      .search {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        border: 2px solid;
-        border-radius: 10px;
-      }
-    
-      .search:focus {
-        border: 2px solid red;
-      }
-    
+      flex-basis: $header-height;
+
+
       .input-wrapper {
         display: flex;
         width: 80%;
         align-items: center;
         position: relative;
         height: 25px;
-        color: rgba($color: #1a1a1a, $alpha: 0.5);
+        color: $note-list-text;
         font-weight: 700;
     
         span {
@@ -64,7 +54,7 @@
           position: absolute;
           left: 6px;
           font-size: 1.3rem;
-          
+          border-right: 1px solid $note-list-border;
         }
     
         .search {
@@ -78,7 +68,7 @@
         }
       
         .search:focus {
-          border: 2px solid rgba($color: #1a1a1a, $alpha: 0.5);
+          border: 2px solid rgba($color: $note-list-focus, $alpha: 0.5);
           border-radius: 10px;
           outline: none;
         }
@@ -92,6 +82,7 @@
         align-items: center;
         padding: 3px;
         min-width: 24px;
+        color: $note-list-btn;
     
         span {
           margin-right: 10px;
@@ -99,23 +90,24 @@
       }
     
       .button.selected, .button:hover {
-        background: $menu-folder-list-selected-color;
+        background-color: $note-list-focus;
         border-radius: 10px;
       }
   
     }
-  
+
     .list-of-notes {
       @include noselect();
       @include clear-list();
       top: $folder-content-toolbar-height;
       overflow-y: auto;
       background: #f8f8f8;
-      height: 750px;
-  
+     // height: 750px;
+      flex-grow: 2;
+
       .note-item {
         cursor: pointer;
-        border-bottom: 2px solid #f0f0f0;
+        border-bottom: 3px solid $note-list-item-border;
         display: flex;
         justify-content: space-between;
         height: $folder-content-list-item-height;
@@ -140,13 +132,13 @@
             //height: 50px;
             font-size: 0.8rem;
             font-weight: 600;
-            color: rgba($color: #000000, $alpha: 0.55)
+            color: rgba($color: $note-list-text, $alpha: 0.55)
           }
   
           .date {
             font-size: 0.7rem;
             font-weight: 500;
-            color: rgba($color: #000000, $alpha: 0.5)
+            color: rgba($color: $note-list-text, $alpha: 0.5)
           }
         }
   

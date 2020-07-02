@@ -11,12 +11,13 @@
   padding: 0 10px;
   overflow: hidden;
   
-  background: #ffffff;
+  background: $note-bg;
 }
 
 .note-menu {
   height: $header-height;
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid $note-border;
+  color: $note-text;
 
   .wrapper {
     display: flex;
@@ -39,12 +40,13 @@
     
     span {
       cursor: pointer;
+      color: $note-btn;
     }
 
     .vertical-separator {
       margin: auto 5px;
       width: 2px;
-      background: red;
+      background: $note-border;
       height: 15px;
       
     }
@@ -54,26 +56,34 @@
 
 .note-toolbar {
   height: $note-toolbar-height;
-
   .button {
+    color: $note-btn;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     margin-left: 10px;
+    width: 28px;
+    height: 28px;
+    border-radius: 40%;
   }
 
   .button.selected, .button:hover {
-    background: red;
+    background: $note-focus;
   }
 
   .wrapper {
     display: flex;
     justify-content: start;
     align-items: center;
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid $note-toolbar-border;
     width: 100%;
+    height: 100%;
   }
 }
 
 .note-note {
+  color: $note-text;
   height: 700px;
   background: #ffffff;
   overflow:hidden;
