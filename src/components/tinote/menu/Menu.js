@@ -7,7 +7,8 @@ import {selectFolder,
   deleteFolder,
   renameFolder,
   addFolder,
-  deleteAllNotesInFolder
+  deleteAllNotesInFolder,
+  moveNotesFromFolderToTrash
 } from "./../../../redux/actions";
 import {initialFolder} from "@/constants";
 import {modal, MODAL_YES} from "../../modal/Modal";
@@ -71,7 +72,7 @@ export class Menu extends Component {
       modal("This action will delete all notes in the folder",
         answer => {
           if (answer === MODAL_YES) {
-            this.$dispatch(deleteAllNotesInFolder(data))
+            this.$dispatch(moveNotesFromFolderToTrash(data))
             this.$dispatch(deleteFolder(data))
           }
         }

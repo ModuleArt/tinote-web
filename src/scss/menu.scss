@@ -10,6 +10,11 @@ $dot-animation-scale: 1;
 
 
 .tinote__menu {
+  ::selection {
+    color: none;
+    background: none;
+  }
+
   display: flex;
   flex-direction: row;
   float:left;

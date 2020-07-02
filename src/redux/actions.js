@@ -12,7 +12,8 @@ import {SELECT_FOLDER,
   CHANGE_STYLES,
   UPDATE_FROM_CLOUD,
   DELETE_ALL_NOTES_IN_FOLDER,
-  MOVE_NOTE_TO_TRASH
+  MOVE_NOTE_TO_TRASH,
+  MOVE_NOTES_FROM_FOLDER_TO_TRASH
 } from "./types"
 
 export function selectFolder(data) {
@@ -71,6 +72,12 @@ export function moveNoteToTrash(data) {
   }
 }
 
+export function moveNotesFromFolderToTrash(data) {
+  return {
+    type: MOVE_NOTES_FROM_FOLDER_TO_TRASH,
+    data
+  }
+}
 
 export function renameNote(data) {
   return {

@@ -46,8 +46,8 @@ export class Toolbar extends StateComponent {
     const $target = $(event.target)
     if ($target.data.type === "button") {
       const value = JSON.parse($target.data.value)
-
       this.$emit("toolbar:changeStyles", value)
+      this.refreshState()
     }
   }
 

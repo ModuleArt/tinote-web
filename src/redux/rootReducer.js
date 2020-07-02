@@ -12,7 +12,8 @@ import {SELECT_FOLDER,
   CHANGE_STYLES,
   UPDATE_FROM_CLOUD,
   DELETE_ALL_NOTES_IN_FOLDER,
-  MOVE_NOTE_TO_TRASH
+  MOVE_NOTE_TO_TRASH,
+  MOVE_NOTES_FROM_FOLDER_TO_TRASH
 } from "./types"
 import {TRASH_ID} from "../constants"
 
@@ -28,6 +29,14 @@ export function rootReducer(state, action) {
   case MOVE_NOTE_TO_TRASH:
     return {...state, notes: state.notes.map(n => {
       if (n.id === action.data) {
+        return {...n, folder: TRASH_ID}
+      }
+      return n
+    })}
+
+  case MOVE_NOTES_FROM_FOLDER_TO_TRASH:
+    return {...state, notes: state.notes.map(n => {
+      if (n.folder === action.data) {
         return {...n, folder: TRASH_ID}
       }
       return n

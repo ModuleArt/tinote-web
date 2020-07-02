@@ -18,6 +18,7 @@
   height: $header-height;
   border-bottom: 2px solid $note-border;
   color: $note-text;
+  
 
   .wrapper {
     display: flex;
@@ -28,7 +29,13 @@
   }
 
   .name-of-note {
-    margin-left: 20px;
+    margin-left: 15px;
+    padding: 5px;
+  }
+
+  .name-of-note::selection {
+    color: none;
+    background: none;
   }
 
   .note-buttons {
@@ -86,7 +93,11 @@
   color: $note-text;
   height: 700px;
   background: #ffffff;
-  overflow:hidden;
+  overflow: hidden;
   padding: 20px 60px;
   outline: none;
+
+  div {
+    outline: none;
+  }
 }
