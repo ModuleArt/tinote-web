@@ -3,7 +3,7 @@ import {$} from "@core/dom";
 import {changeText, changeStyles} from "@/redux/actions";
 import {createNote} from "./note.template";
 
-export class Note extends Component {
+class Note extends Component {
   static className = "note-note"
 
   constructor($root, options) {
@@ -49,3 +49,5 @@ export class Note extends Component {
     return createNote(this.store.getState())
   }
 }
+
+export default Note

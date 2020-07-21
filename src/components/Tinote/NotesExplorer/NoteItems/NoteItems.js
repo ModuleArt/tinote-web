@@ -7,11 +7,11 @@ import {
   changeListSize,
   addNote,
   moveNoteToTrash
-} from "../../../redux/actions";
-import {initialNote, TRASH_ID} from "../../../constants";
-import {modal, MODAL_YES} from "../../modal/Modal";
+} from "@/redux/actions";
+import {initialNote, TRASH_ID} from "../../../../constants";
+import modal, {MODAL_YES} from "../../../UI/Modal/Modal";
 
-export class ListOfNotes extends Component {
+class NoteItems extends Component {
   static className = "tinote__list-of-notes"
 
   constructor($root, options) {
@@ -108,3 +108,5 @@ export class ListOfNotes extends Component {
     return createlistOfNotes(this.store.getState())
   }
 }
+
+export default NoteItems

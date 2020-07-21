@@ -1,4 +1,4 @@
-const {$} = require("../../core/dom")
+const {$} = require("@core/dom")
 
 const loader = () => {
   const $root = $.create("div", "loader")

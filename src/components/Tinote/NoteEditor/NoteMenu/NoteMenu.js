@@ -3,7 +3,7 @@ import {createNoteMenu} from "./noteMenu.template";
 import {renameNote, deleteNote} from "@/redux/actions";
 import {$} from "@core/dom";
 
-export class NoteMenu extends Component {
+class NoteMenu extends Component {
   static className = "note-menu"
 
   constructor($root, options) {
@@ -81,3 +81,5 @@ export class NoteMenu extends Component {
     return createNoteMenu(this.store.getState())
   }
 }
+
+export default NoteMenu

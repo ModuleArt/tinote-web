@@ -1,46 +1,42 @@
-import {$} from "@core/dom";
-import {StoreSubscriber} from "@core/StoreSubscriber";
-import {Emitter} from "@core/Emitter";
+import {$} from "./dom"
 
-export class Tinote {
-  constructor(options) {
-    this.$root = null
+export class Wrapper {
+  constructor($el, options) {
+    console.log(options)
+    this.$root = $el
     this.components = options.components || []
     this.store = options.store
     this.firebase = options.firebase
-    this.emitter = new Emitter()
-    this.storeSubscriber = new StoreSubscriber(this.store)
+    this.emitter = options.emitter
+    this.storeSubscriber = options.storeSubscriber
   }
 
   getRoot() {
-    const $root = $.create("div", "tinote")
-
     this.components = this.components.map(Component => {
       const $el = $.create("div", Component.className)
-      console.log(Component)
+
       const component = new Component($el, {
         store: this.store,
         emitter: this.emitter,
-        firebase: this.firebase,
-        storeSubscriber: this.storeSubscriber
+        firebase: this.firebase
       })
 
       $el.html(component.toHTML())
-      $root.append($el)
+      this.$root.append($el)
 
       return component
     })
-
-    return $root
   }
 
-  render() {
-    this.$root = this.getRoot()
+  init() {
     this.storeSubscriber.subscribeComponents(this.components)
     this.components.forEach(element => {
       element.init()
     });
+  }
 
+  toHTML() {
+    this.getRoot()
     return this.$root
   }
 

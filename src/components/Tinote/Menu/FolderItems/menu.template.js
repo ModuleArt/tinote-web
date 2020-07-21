@@ -1,4 +1,4 @@
-import {TRASH_ID, ALL_NOTES_ID} from "../../../constants"
+import {TRASH_ID, ALL_NOTES_ID} from "@/constants"
 
 
 function createFolder(currentFolder) {
@@ -49,6 +49,16 @@ function createFoldersList(folders, currentFolder) {
         note
       </span>
       All notes
+
+    </li>
+
+    <li class="folder ${isAllNotes}" 
+    data-type="folder" data-id="${ALL_NOTES_ID}" >
+
+      <span class="material-icons">
+      folder_open
+      </span>
+      Without folder
 
     </li>
 

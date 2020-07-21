@@ -4,14 +4,13 @@ import {IndexedDBClient} from "../clients/IndexedDBClient"
 import {StateProcessor} from "../core/StateProcessor"
 import {createStore} from "../core/createStore"
 import {rootReducer} from "../redux/rootReducer"
-import {Tinote} from "../components/tinote/Tinote"
-import {Menu} from "../components/tinote/menu/Menu"
-import {ListOfNotes} from "../components/tinote/listOfNotes/ListOfNotes"
-import {Note} from "../components/tinote/note/Note"
-import {NoteMenu} from "../components/tinote/noteMenu/NoteMenu"
-import {Toolbar} from "../components/tinote/toolbar/Toolbar"
-import {ContextMenu} from "../components/tinote/contextMenu/ContextMenu"
+import {Tinote} from "../components/Tinote/Tinote"
+import Menu from "../components/Tinote/Menu/Menu"
+
+import {ContextMenu} from "../components/UI/ContextMenu/ContextMenu"
 import {FirebaseDBClient} from "../clients/FirebaseDBClient"
+import NoteEditor from "../components/Tinote/NoteEditor/NoteEditor"
+import NotesExplorer from "../components/Tinote/NotesExplorer/NotesExplorer"
 
 export class TinotePage extends Page {
   static route = "tinote"
@@ -66,10 +65,8 @@ export class TinotePage extends Page {
     this.tinote = new Tinote({
       components: [
         Menu,
-        ListOfNotes,
-        NoteMenu,
-        Toolbar,
-        Note,
+        NotesExplorer,
+        NoteEditor,
         ContextMenu
       ],
       store,

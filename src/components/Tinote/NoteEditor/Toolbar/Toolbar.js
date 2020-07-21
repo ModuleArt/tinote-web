@@ -3,7 +3,7 @@ import {defaultStyles} from "@/constants";
 import {createToolbar} from "./toolbar.template";
 import {$} from "@core/dom";
 
-export class Toolbar extends StateComponent {
+class Toolbar extends StateComponent {
   static className = "note-toolbar"
 
   constructor($root, options) {
@@ -55,3 +55,5 @@ export class Toolbar extends StateComponent {
     return this.template
   }
 }
+
+export default Toolbar

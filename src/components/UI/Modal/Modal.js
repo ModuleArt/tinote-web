@@ -1,6 +1,6 @@
 export const MODAL_YES = "MODAL_YES"
 export const MODAL_NO = "MODAL_NO"
-import {$} from "../../core/dom"
+import {$} from "@core/dom"
 
 export const modal = (message, callback) => {
   const $el = $.create("div", "modal")

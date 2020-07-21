@@ -1,4 +1,4 @@
-import {ALL_NOTES_ID, TRASH_ID} from "../../../constants"
+import {ALL_NOTES_ID, TRASH_ID} from "../../../../constants"
 
 function toNote(currentNote) {
   return note => {

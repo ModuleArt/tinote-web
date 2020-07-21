@@ -1,5 +1,5 @@
 import {$} from "../dom";
-import loader from "../../components/loader/loader"
+import loader from "../../components/UI/Loader/loader"
 export class Router {
   constructor(options) {
     this.pages = options.pages || []
